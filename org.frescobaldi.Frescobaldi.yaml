@@ -26,9 +26,6 @@ finish-args:
 #  - --env=QT_QPA_PLATFORM=xcb
 
 modules:
-  # To be removed when next lilypond stable (2.22) is released.
-  - shared-modules/python2.7/python-2.7.json
-
   - name: guile
     buildsystem: autotools
     build-options:
@@ -74,13 +71,16 @@ modules:
       - "*"
 
   - name: fontforge
-    buildsystem: autotools
+    buildsystem: cmake-ninja
+    builddir: true
     config-opts:
-      - --enable-double
+      - -DENABLE_DOCS=false
+      - -DENABLE_LIBSPIRO=false
+      - -DREAL_TYPE=double
     sources:
       - type: archive
-        url: https://github.com/fontforge/fontforge/releases/download/20190801/fontforge-20190801.tar.gz
-        sha256: d92075ca783c97dc68433b1ed629b9054a4b4c74ac64c54ced7f691540f70852
+        url: https://github.com/fontforge/fontforge/archive/20200314.tar.gz
+        sha256: ad0eb017379c6f7489aa8e2d7c160f19140d1ac6351f20df1d9857d9428efcf2
     cleanup:
       - "*"
 
@@ -122,8 +122,8 @@ modules:
       - --disable-documentation
     sources:
       - type: archive
-        url: http://lilypond.org/download/sources/v2.20/lilypond-2.20.0.tar.gz
-        sha256: 595901323fbc88d3039ca4bdbc2d8c5ce46b182edcb3ea9c0940eba849bba661
+        url: https://lilypond.org/download/sources/v2.22/lilypond-2.22.0.tar.gz
+        sha256: 64ddd03171d247adc243e01a3be3ec2610d97c62b893c253ad02ac50694b0f4e
     build-options:
       env:
         PATH: /usr/lib/sdk/texlive/bin/x86_64-linux:/usr/lib/sdk/texlive/bin:/usr/bin:/app/bin
