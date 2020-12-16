@@ -122,8 +122,8 @@ modules:
       - --disable-documentation
     sources:
       - type: archive
-        url: http://lilypond.org/download/sources/v2.21/lilypond-2.21.80.tar.gz
-        sha256: 64296eff097e5c5bd0b27a45ea2261b151099534d886119a414eb8947e34aec4
+        url: https://lilypond.org/download/sources/v2.21/lilypond-2.21.82.tar.gz
+        sha256: f0bd17cccee771ed4a2e0db1ec81c98d9f52e47090e5dcc085de65dd8cc4bdd9
     build-options:
       env:
         PATH: /usr/lib/sdk/texlive/bin/x86_64-linux:/usr/lib/sdk/texlive/bin:/usr/bin:/app/bin
