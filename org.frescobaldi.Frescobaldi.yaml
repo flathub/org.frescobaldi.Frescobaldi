@@ -13,7 +13,7 @@ sdk-extensions:
 command: frescobaldi
 
 finish-args:
-  - --env=QTWEBENGINEPROCESS_PATH=/app/bin
+  - --env=QTWEBENGINEPROCESS_PATH=/app/bin/QtWebEngineProcess
   - --filesystem=home
   - --share=ipc
   - --share=network
@@ -192,8 +192,8 @@ modules:
       - /include
     sources:
       - type: archive
-        url: https://files.pythonhosted.org/packages/1d/31/896dc3dfb6c81c70164019a6cbba6ab037e3af7653d9ca60ccc874ee4c27/PyQt5-5.15.1.tar.gz
-        sha256: d9a76b850246d08da9863189ecb98f6c2aa9b4d97a3e85e29330a264aed0f9a1
+        url: https://files.pythonhosted.org/packages/28/6c/640e3f5c734c296a7193079a86842a789edb7988dca39eab44579088a1d1/PyQt5-5.15.2.tar.gz
+        sha256: 372b08dc9321d1201e4690182697c5e7ffb2e0770e6b4a45519025134b12e4fc
 
   - name: PyQt5-WebEngine
     buildsystem: simple
@@ -216,8 +216,8 @@ modules:
       - make install
     sources:
       - type: archive
-        url: https://files.pythonhosted.org/packages/6f/8a/b7c05d582764a92b031f3f2575faf61a43da76218578bf1f9720d63241b6/PyQtWebEngine-5.15.1.tar.gz
-        sha256: f0ca7915ee206ba5d703168c6ca40b0aad62c67360328fae4af5359cdbcee439
+        url: https://files.pythonhosted.org/packages/36/43/bd66139dc1b3abeaf4c79ee19de9eed9376f394113525de00494086a3773/PyQtWebEngine-5.15.2.tar.gz
+        sha256: 4d72fea774071ce6f76e341a3d2c5d595886c9906a9b9493239c841cce54a634
     cleanup:
       - /include
       - /lib/debug
