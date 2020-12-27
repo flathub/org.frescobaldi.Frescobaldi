@@ -1,5 +1,74 @@
-diff -u b/linux/org.frescobaldi.Frescobaldi.metainfo.xml.in b/linux/org.frescobaldi.Frescobaldi.metainfo.xml.in
---- b/linux/org.frescobaldi.Frescobaldi.metainfo.xml.in
+From c73e8521f90e8d5b94283e5426cc61b0ffccc8ab Mon Sep 17 00:00:00 2001
+From: Federico Bruni <fede@inventati.org>
+Date: Wed, 30 Dec 2020 22:06:54 +0100
+Subject: [PATCH] Fix syntax errors in NEWS (propagating to metainfo)
+
+---
+ NEWS                                          |  37 +++-
+ ...rg.frescobaldi.Frescobaldi.metainfo.xml.in | 161 ++++--------------
+ 2 files changed, 60 insertions(+), 138 deletions(-)
+
+diff --git a/NEWS b/NEWS
+index cb94c253..dbe8cbe0 100644
+--- a/NEWS
++++ b/NEWS
+@@ -5,8 +5,6 @@ Released: 2020-12-26
+ Notes:
+  - This release contains several bug fixes and improvements. It is probably
+    the last release in the 3.1 version range.
+- - Full history and credits for this release are available at
+-   https://github.com/frescobaldi/frescobaldi/compare/v3.1.2...v3.1.3
+ 
+ Features:
+  - a Clear Music View button and menu action were added
+@@ -14,14 +12,39 @@ Features:
+ Bugfixes:
+  - fixed "NameError: name 'imp' is not defined" when importing
+  - fixed search of generated files on macOS for some Unicode file names
+- - fixed selection of Python on Mac OS:
+-   * select the system Python 2 or 3 according to LilyPond's version
+-   * support MacPorts' LilyPond tools
+-   * add option to allow forcing the use of the tools' #! lines
+-     (useful for self-compiled or other nonstandard LilyPond installations)
++ - Mac OS: select the system Python 2 or 3 according to LilyPond's version;
++   support MacPorts' LilyPond tools; add option to allow forcing the use of
++   the tools' #! lines (useful for self-compiled or other nonstandard
++   LilyPond installations)
+  - fixed "AttributeError: 'PreviewJob' object has no attribute 'lilypond_version'"
+  - fixed Ghostscript error on Mac with MacPorts' LilyPond 2.21.x
+ 
+ Translations:
+  - Updated translations: Dutch, Czech, Russian
+ 
++
++Version 3.1.2
++~~~~~~~~~~~~~
++Released: 2020-04-13
++
++Notes:
++ - This release contains several bugfixes for Mac OS X.
++
++Features:
++ - Added a german hyphenation dictionary.
++
++Bugfixes:
++ - Improved Python selection on Mac, required to run without errors the
++   LilyPond bundled scripts, such as convert-ly.
++ - Fixed printing score on Mac.
++ - Fixed pinch gesture zoom in music view on Mac.
++ - Changed some keyboard shortcuts on Mac: Cmd+left and Cmd+right will now move
++   the cursor to the beginning and to the end of the line, respectively; new
++   shortcuts to navigate between documents are Ctrl+tab (next document) and
++   Ctrl+Shift+tab (previous document).
++ - File names in document tabs are now shown correctly on Mac.
++
++Translations:
++ - Updated dutch and italian translations.
++ - Userguide now has its own PO files in i18n/userguide, and the Frescobaldi
++   application itself has the PO files in i18n/frescobaldi, see README-translations.
+diff --git a/linux/org.frescobaldi.Frescobaldi.metainfo.xml.in b/linux/org.frescobaldi.Frescobaldi.metainfo.xml.in
+index c40c1588..b1297520 100644
+--- a/linux/org.frescobaldi.Frescobaldi.metainfo.xml.in
 +++ b/linux/org.frescobaldi.Frescobaldi.metainfo.xml.in
 @@ -1,11 +1,10 @@
 -<?xml version="1.0" encoding="UTF-8"?>
@@ -16,7 +85,9 @@ diff -u b/linux/org.frescobaldi.Frescobaldi.metainfo.xml.in b/linux/org.frescoba
    <description>
      <p>
        Frescobaldi is an advanced text editor to edit LilyPond sheet music files.
-@@ -34,139 +33,51 @@
+@@ -32,172 +31,72 @@
+       composer of keyboard music in the late Renaissance and early Baroque period.
+     </p>
    </description>
 -
 +  <url type="homepage">http://frescobaldi.org/</url>
@@ -62,8 +133,46 @@ diff -u b/linux/org.frescobaldi.Frescobaldi.metainfo.xml.in b/linux/org.frescoba
 -  <translation type="gettext">frescobaldi</translation>
 -
    <releases>
+-    <release version="3.1.3" date="2020-12-26">
++    <release type="stable" version="3.1.3" date="2020-12-26T00:00:00Z">
+       <description>
+-        <p>Notes:</p>
+-        <ul>
+-          <li>This release contains several bug fixes and improvements. It is probably the last release in the 3.1 version range</li>
+-          <li>Full history and credits for this release are available at https://github.com/frescobaldi/frescobaldi/compare/v3.1.2...v3.1.3</li>
+-        </ul>
+-        <p>Features:</p>
++        <p>This release contains several bug fixes and improvements. It is probably the last release in the 3.1 version range.</p>
++        <p>This release adds the following feature:</p>
+         <ul>
+           <li>a Clear Music View button and menu action were added</li>
+         </ul>
+-        <p>Bug fixes:</p>
++        <p>This release fixes the following bugs:</p>
+         <ul>
+           <li>fixed "NameError: name 'imp' is not defined" when importing</li>
+           <li>fixed search of generated files on macOS for some Unicode file names</li>
+-          <li>fixed selection of Python on Mac OS:</li>
+-          <ul>
+-            <li>select the system Python 2 or 3 according to LilyPond's version</li>
+-            <li>support MacPorts' LilyPond tools</li>
+-            <li>add option to allow forcing the use of the tools' #! lines (useful for self-compiled or other nonstandard LilyPond installations)</li>
+-          </ul>
++          <li>Mac OS: select the system Python 2 or 3 according to LilyPond's version; support MacPorts' LilyPond tools; add option to allow forcing the use of the tools' #! lines</li>
+           <li>fixed "AttributeError: 'PreviewJob' object has no attribute 'lilypond_version'"</li>
+           <li>fixed Ghostscript error on Mac with MacPorts' LilyPond 2.21.x</li>
+         </ul>
+-        <p>Translations:</p>
+-        <ul>
+-          <li>Updated translations: Dutch, Czech, Russian</li>
+-        </ul>
++        <p>This release updates translations.</p>
+       </description>
+     </release>
+-
 -    <release version="3.1.2" date="2020-04-13">
--      <description>
++    <release type="stable" version="3.1.2" date="2020-04-13T00:00:00Z">
+       <description>
 -        <p>Bug fixes:</p>
 -        <ul>
 -          <li>Fixed the error "AttributeError: 'NoneType' object has no attribute 'cursor'"</li>
@@ -93,8 +202,7 @@ diff -u b/linux/org.frescobaldi.Frescobaldi.metainfo.xml.in b/linux/org.frescoba
 -      </description>
 -    </release>
 -    <release version="3.1.1" date="2020-01-04">
-+    <release type="stable" version="3.1.2" date="2020-04-13T00:00:00Z">
-       <description>
+-      <description>
 -        <p>Bugfixes:</p>
 -        <ul>
 -          <li>Fixed the error AttributeError: 'PopplerDocument' has no attribute 'ispresent'.</li>
@@ -151,6 +259,7 @@ diff -u b/linux/org.frescobaldi.Frescobaldi.metainfo.xml.in b/linux/org.frescoba
 -          <li>Frescobaldi now requires Python3.2+, Qt5, PyQt5, python-poppler-qt5.</li>
 -        </ul>
 -        <p>New features:</p>
++        <p>This release contains several bugfixes for Mac OS X.</p>
 +        <p>This release adds the following feature:</p>
          <ul>
 -          <li>Zoom with pinch gesture in Music View.</li>
@@ -176,3 +285,6 @@ diff -u b/linux/org.frescobaldi.Frescobaldi.metainfo.xml.in b/linux/org.frescoba
 -
 +  <content_rating type="oars-1.1"/>
  </component>
+-- 
+2.29.2
+
