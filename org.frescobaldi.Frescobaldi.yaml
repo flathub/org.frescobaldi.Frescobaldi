@@ -228,8 +228,8 @@ modules:
       - python3 setup.py install --prefix=/app
     sources:
       - type: archive
-        url: https://github.com/frescobaldi/python-ly/archive/v0.9.6.tar.gz
-        sha256: f1e7a2386c50460c2bf6e0876216f5101f3ee4aa956c6eb2348d901e005d1a07
+        url: https://github.com/frescobaldi/python-ly/archive/v0.9.7.tar.gz
+        sha256: 8bfcbfb737b66eca90a419764ab1bfbf403ecb226093e7f3097a9a9b7e29f8a7
 
   - name: python-poppler-qt5
     buildsystem: simple
@@ -272,10 +272,10 @@ modules:
       - python3 setup.py install --prefix=/app --root=/
     sources:
       - type: archive
-        url: https://github.com/frescobaldi/frescobaldi/releases/download/v3.1.2/frescobaldi-3.1.2.tar.gz
-        sha256: 5c2cffb8282cd9faef1585808bd800d1eb3c0db4cc464a61ce8576dbf7ef9b20
+        url: https://github.com/frescobaldi/frescobaldi/releases/download/v3.1.3/frescobaldi-3.1.3.tar.gz
+        sha256: 9c7f5036f367691454753f1db06ea02c33501c1e4f24bfb47485103911f3e9c1
       - type: patch
-        path: patches/frescobaldi-fix-metainfo-file.patch
+        path: patches/Fix-syntax-errors-in-NEWS.patch
 
 cleanup-commands:
   - /app/cleanup-BaseApp.sh
