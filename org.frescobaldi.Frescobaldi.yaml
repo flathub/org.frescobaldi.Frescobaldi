@@ -45,6 +45,11 @@ modules:
         path: patches/guile-1.8.8-cve-2016-8605.patch
       - type: patch
         path: patches/guile-1.8.8-configure.patch
+      # Files in the tarball are too old for aarch64 so we take them from the Sdk.
+      - type: shell
+        commands:
+          - cp -fp /usr/share/automake-*/config.{sub,guess} build-aux/
+          - cp -fp /usr/share/automake-*/config.{sub,guess} guile-readline/
     cleanup:
       - /include
       - /share/aclocal
@@ -105,12 +110,25 @@ modules:
   - name: ghostscript
     sources:
       - type: archive
-        url: https://github.com/ArtifexSoftware/ghostpdl-downloads/releases/download/gs952/ghostpdl-9.52.tar.xz
-        sha256: 33dd239a61bac154de123b6f8a28ebf3d8d9d462ac282065a1c389f96d92c0f3
+        url: https://github.com/ArtifexSoftware/ghostpdl-downloads/releases/download/gs9533/ghostscript-9.53.3.tar.xz
+        sha256: 9c9f5bc85b6c7eb08368c05b1e3339f7aaf9677ddca710c6283f872d55e2a234
+      - type: shell
+        commands:
+          - cp -p /usr/share/automake-*/config.{sub,guess} freetype/builds/unix/
+          - cp -p /usr/share/automake-*/config.{sub,guess} ijs/
+          - cp -p /usr/share/automake-*/config.{sub,guess} jpeg/
+          - cp -p /usr/share/automake-*/config.{sub,guess} libpng/
+          - cp -p /usr/share/automake-*/config.{sub,guess} lcms2mt/
+          - cp -p /usr/share/automake-*/config.{sub,guess} tiff/config/
+          - cp -p /usr/share/automake-*/config.{sub,guess} .
     config-opts:
       - --disable-cups
       - --disable-gtk
       - --enable-dynamic
+    make-args:
+      - so
+    make-install-args:
+      - soinstall
     cleanup:
       - /share/doc
       - /bin/gpcl6
@@ -124,9 +142,15 @@ modules:
       - type: archive
         url: https://lilypond.org/download/sources/v2.22/lilypond-2.22.0.tar.gz
         sha256: 64ddd03171d247adc243e01a3be3ec2610d97c62b893c253ad02ac50694b0f4e
+      - type: shell
+        commands:
+          - cp -p /usr/share/automake-*/config.{sub,guess} config/
     build-options:
-      env:
-        PATH: /usr/lib/sdk/texlive/bin/x86_64-linux:/usr/lib/sdk/texlive/bin:/usr/bin:/app/bin
+      arch:
+        aarch64:
+          prepend-path: /usr/lib/sdk/texlive/bin/aarch64-linux:/usr/lib/sdk/texlive/bin
+        x86_64:
+          prepend-path: /usr/lib/sdk/texlive/bin/x86_64-linux:/usr/lib/sdk/texlive/bin
 
   # OpenJPEG is needed to build Poppler
   - shared-modules/openjpeg/openjpeg.json
