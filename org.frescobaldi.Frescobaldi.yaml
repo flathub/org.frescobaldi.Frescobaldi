@@ -48,8 +48,8 @@ modules:
       # Files in the tarball are too old for aarch64 so we take them from the Sdk.
       - type: shell
         commands:
-          - chmod +w build-aux/config*
-          - cp -p /usr/share/automake-*/config.{sub,guess} build-aux/
+          - cp -fp /usr/share/automake-*/config.{sub,guess} build-aux/
+          - cp -fp /usr/share/automake-*/config.{sub,guess} guile-readline/
     cleanup:
       - /include
       - /share/aclocal
