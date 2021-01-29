@@ -45,6 +45,11 @@ modules:
         path: patches/guile-1.8.8-cve-2016-8605.patch
       - type: patch
         path: patches/guile-1.8.8-configure.patch
+      # Files in the tarball are too old for aarch64 so we take them from the Sdk.
+      - type: shell
+        commands:
+          - chmod +w build-aux/config*
+          - cp -p /usr/share/automake-*/config.{sub,guess} build-aux/
     cleanup:
       - /include
       - /share/aclocal
