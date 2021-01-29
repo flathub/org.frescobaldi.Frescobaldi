@@ -112,10 +112,22 @@ modules:
       - type: archive
         url: https://github.com/ArtifexSoftware/ghostpdl-downloads/releases/download/gs952/ghostpdl-9.52.tar.xz
         sha256: 33dd239a61bac154de123b6f8a28ebf3d8d9d462ac282065a1c389f96d92c0f3
+      - type: shell
+        commands:
+          - cp -p /usr/share/automake-*/config.{sub,guess} freetype/builds/unix/
+          - cp -p /usr/share/automake-*/config.{sub,guess} ijs/
+          - cp -p /usr/share/automake-*/config.{sub,guess} jpeg/
+          - cp -p /usr/share/automake-*/config.{sub,guess} libpng/
+          - cp -p /usr/share/automake-*/config.{sub,guess} lcms2mt/
+          - cp -p /usr/share/automake-*/config.{sub,guess} tiff/config/
     config-opts:
       - --disable-cups
       - --disable-gtk
       - --enable-dynamic
+    make-args:
+      - so
+    make-install-args:
+      - soinstall
     cleanup:
       - /share/doc
       - /bin/gpcl6
