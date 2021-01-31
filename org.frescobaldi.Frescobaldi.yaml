@@ -142,6 +142,9 @@ modules:
       - type: archive
         url: https://lilypond.org/download/sources/v2.22/lilypond-2.22.0.tar.gz
         sha256: 64ddd03171d247adc243e01a3be3ec2610d97c62b893c253ad02ac50694b0f4e
+      - type: shell
+        commands:
+          - cp -p /usr/share/automake-*/config.{sub,guess} config/
     build-options:
       env:
         PATH: /usr/lib/sdk/texlive/bin/x86_64-linux:/usr/lib/sdk/texlive/bin:/usr/bin:/app/bin
