@@ -120,6 +120,7 @@ modules:
           - cp -p /usr/share/automake-*/config.{sub,guess} libpng/
           - cp -p /usr/share/automake-*/config.{sub,guess} lcms2mt/
           - cp -p /usr/share/automake-*/config.{sub,guess} tiff/config/
+          - cp -p /usr/share/automake-*/config.{sub,guess} .
     config-opts:
       - --disable-cups
       - --disable-gtk
