@@ -146,8 +146,11 @@ modules:
         commands:
           - cp -p /usr/share/automake-*/config.{sub,guess} config/
     build-options:
-      env:
-        PATH: /usr/lib/sdk/texlive/bin/x86_64-linux:/usr/lib/sdk/texlive/bin:/usr/bin:/app/bin
+      arch:
+        aarch64:
+          prepend-path: /usr/lib/sdk/texlive/bin/aarch64-linux:/usr/lib/sdk/texlive/bin
+        x86_64:
+          prepend-path: /usr/lib/sdk/texlive/bin/x86_64-linux:/usr/lib/sdk/texlive/bin
 
   # OpenJPEG is needed to build Poppler
   - shared-modules/openjpeg/openjpeg.json
