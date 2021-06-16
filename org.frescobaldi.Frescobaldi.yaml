@@ -160,13 +160,30 @@ modules:
     config-opts:
       - -DCMAKE_INSTALL_LIBDIR=/app/lib
       - -DCMAKE_INSTALL_INCLUDEDIR=/app/include
+      - -DBUILD_QT5_TESTS=OFF
+      - -DBUILD_GTK_TESTS=OFF
+      - -DBUILD_CPP_TESTS=OFF
+      - -DBUILD_MANUAL_TESTS=OFF
+      - -DENABLE_UTILS=OFF
     cleanup:
       - /bin
       - /include
+    modules:
+      - name: boost-headers
+        buildsystem: simple
+        build-commands:
+          - mkdir -p ${FLATPAK_DEST}/include
+          - mv boost ${FLATPAK_DEST}/include
+        cleanup:
+          - /include
+        sources:
+          - type: archive
+            url: https://boostorg.jfrog.io/artifactory/main/release/1.73.0/source/boost_1_73_0.tar.bz2
+            sha256: 4eb3b8d442b426dc35346235c8733b5ae35ba431690e38c6a8263dce9fcbb402
     sources:
       - type: archive
-        url: https://poppler.freedesktop.org/poppler-0.80.0.tar.xz
-        sha256: 4d3ca6b79bc13b8e24092e34f83ef5f387f3bb0bbd7359a6c078e09c696d104f
+        url: https://poppler.freedesktop.org/poppler-21.06.1.tar.xz
+        sha256: 86b09e5a02de40081a3916ef8711c5128eaf4b1fc59d5f87d0ec66f04f595db4
 
   - name: sip
     buildsystem: simple
