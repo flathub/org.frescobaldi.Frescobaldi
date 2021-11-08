@@ -14,6 +14,7 @@ command: frescobaldi
 
 finish-args:
   - --env=QTWEBENGINEPROCESS_PATH=/app/bin/QtWebEngineProcess
+  - --env=PATH=/app/bin:/app/lilypond-unstable/bin:/usr/bin
   - --filesystem=home
   - --share=ipc
   - --share=network
@@ -145,6 +146,22 @@ modules:
       - type: shell
         commands:
           - cp -p /usr/share/automake-*/config.{sub,guess} config/
+    build-options:
+      arch:
+        aarch64:
+          prepend-path: /usr/lib/sdk/texlive/bin/aarch64-linux:/usr/lib/sdk/texlive/bin
+        x86_64:
+          prepend-path: /usr/lib/sdk/texlive/bin/x86_64-linux:/usr/lib/sdk/texlive/bin
+
+  - name: lilypond-dev
+    buildsystem: autotools
+    config-opts:
+      - --disable-documentation
+      - --prefix=/app/lilypond-unstable
+    sources:
+      - type: archive
+        url: https://lilypond.org/download/sources/v2.23/lilypond-2.23.4.tar.gz
+        sha256: e300cfd7b94d81f1fb782ffee2aca8249002ece2f4868004274cebde32764b1e
     build-options:
       arch:
         aarch64:
