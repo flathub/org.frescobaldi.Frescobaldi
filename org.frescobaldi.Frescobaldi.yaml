@@ -15,7 +15,9 @@ command: frescobaldi
 finish-args:
   - --env=QTWEBENGINEPROCESS_PATH=/app/bin/QtWebEngineProcess
   - --env=PATH=/app/bin:/app/lilypond-unstable/bin:/usr/bin
-  - --filesystem=home
+  - --filesystem=xdg-documents
+  - --filesystem=xdg-download
+  - --filesystem=xdg-music
   - --share=ipc
   - --share=network
   - --device=all
