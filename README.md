@@ -7,7 +7,7 @@ When you launch it the first time, Frescobaldi will detect only the stable
 version, installed in `/app/bin` (which has higher priority in the PATH
 environment variable).
 In order to use the unstable version of LilyPond, you must manually add
-the path `/app/lilypond-unstable/bin/lilypond` in *LilyPond Preferences*.
+the path `/app/dev/bin/lilypond` in *LilyPond Preferences*.
 
 
 ## Beta branch
