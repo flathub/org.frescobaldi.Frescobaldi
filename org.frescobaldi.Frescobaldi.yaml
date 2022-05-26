@@ -2,15 +2,21 @@
 app-id: org.frescobaldi.Frescobaldi
 
 base: io.qt.qtwebengine.BaseApp
-base-version: '5.15'
+base-version: '5.15-21.08'
 
 runtime: org.kde.Platform
-runtime-version: '5.15'
+runtime-version: '5.15-21.08'
 sdk: org.kde.Sdk
 sdk-extensions:
-  - org.freedesktop.Sdk.Extension.texlive  # version 20.08
+  - org.freedesktop.Sdk.Extension.texlive
 
 command: frescobaldi
+
+cleanup-commands:
+  - /app/cleanup-BaseApp.sh
+
+cleanup:
+  - /share/man
 
 finish-args:
   - --env=QTWEBENGINEPROCESS_PATH=/app/bin/QtWebEngineProcess
@@ -181,17 +187,14 @@ modules:
       - --prefix=/app/dev
     sources:
       - type: archive
-        url: https://lilypond.org/download/sources/v2.23/lilypond-2.23.7.tar.gz
-        sha256: b5674df4c2371cb6d59a06ea54eaba6c87f2e7c503c9f17ec3db3facd61807c0
+        url: https://lilypond.org/download/sources/v2.23/lilypond-2.23.9.tar.gz
+        sha256: 11204fab661a5324f55c607dc8f9363a47afc741563f8dc867cdd60c173b27db
     build-options:
       arch:
         aarch64:
           prepend-path: /usr/lib/sdk/texlive/bin/aarch64-linux:/usr/lib/sdk/texlive/bin
         x86_64:
           prepend-path: /usr/lib/sdk/texlive/bin/x86_64-linux:/usr/lib/sdk/texlive/bin
-
-  # OpenJPEG is needed to build Poppler
-  - shared-modules/openjpeg/openjpeg.json
 
   - name: poppler
     buildsystem: cmake-ninja
@@ -202,22 +205,12 @@ modules:
       - -DBUILD_GTK_TESTS=OFF
       - -DBUILD_CPP_TESTS=OFF
       - -DBUILD_MANUAL_TESTS=OFF
+      - -DENABLE_BOOST=OFF
+      - -DENABLE_LIBOPENJPEG=none
       - -DENABLE_UTILS=OFF
     cleanup:
       - /bin
       - /include
-    modules:
-      - name: boost-headers
-        buildsystem: simple
-        build-commands:
-          - mkdir -p ${FLATPAK_DEST}/include
-          - mv boost ${FLATPAK_DEST}/include
-        cleanup:
-          - /include
-        sources:
-          - type: archive
-            url: https://boostorg.jfrog.io/artifactory/main/release/1.73.0/source/boost_1_73_0.tar.bz2
-            sha256: 4eb3b8d442b426dc35346235c8733b5ae35ba431690e38c6a8263dce9fcbb402
     sources:
       - type: archive
         url: https://poppler.freedesktop.org/poppler-21.06.1.tar.xz
@@ -226,12 +219,12 @@ modules:
   - name: sip
     buildsystem: simple
     build-commands:
-      - python3 configure.py
+      - python configure.py
         --bindir=/app/bin
-        --destdir=/app/lib/python3.8/site-packages
+        --destdir=/app/lib/python3.9/site-packages
         --incdir=/app/include
         --sipdir=/app/share/sip
-        --stubsdir=/app/lib/python3.8/site-packages
+        --stubsdir=/app/lib/python3.9/site-packages
         --sip-module=PyQt5.sip
       - make -j $FLATPAK_BUILDER_N_JOBS
       - make install
@@ -247,16 +240,16 @@ modules:
       env:
         - QMAKEPATH=/app/lib
       arch:
-          aarch64:
-              config-opts:
-                - --disable-feature=PyQt_Desktop_OpenGL
+        aarch64:
+          config-opts:
+            - --disable-feature=PyQt_Desktop_OpenGL
     config-opts:
       - --confirm-license
       - --bindir=/app/bin
-      - --destdir=/app/lib/python3.8/site-packages
+      - --destdir=/app/lib/python3.9/site-packages
       - --sipdir=/app/share/sip
       - --sip-incdir=/app/include
-      - --stubsdir=/app/lib/python3.8/site-packages/PyQt5
+      - --stubsdir=/app/lib/python3.9/site-packages/PyQt5
       - --no-designer-plugin
       - --no-qml-plugin
       - --enable QtCore
@@ -266,8 +259,8 @@ modules:
       - --enable QtSvg
       - --enable QtWebChannel
       - --enable QtWidgets
-      - QMAKE_CFLAGS_RELEASE='-I/usr/include/python3.8/'
-      - QMAKE_CXXFLAGS_RELEASE='-I/usr/include/python3.8/'
+      - QMAKE_CFLAGS_RELEASE='-I/usr/include/python3.9/'
+      - QMAKE_CXXFLAGS_RELEASE='-I/usr/include/python3.9/'
     cleanup:
       - /bin
       - /include
@@ -279,7 +272,7 @@ modules:
         dest-filename: configure
         commands:
           - processed=`sed -e 's|prefix|sysroot|' <<< $@`
-          - python3 configure.py $processed
+          - python configure.py $processed
 
   - name: PyQt5-WebEngine
     buildsystem: simple
@@ -287,14 +280,14 @@ modules:
       env:
         - QMAKEPATH=/app/lib
     build-commands:
-      - python3 configure.py
+      - python configure.py
         --concatenate --no-dist-info --no-docstrings
         --no-qsci-api --no-sip-files
         --pyqt-sipdir=/app/share/sip
-        --destdir=/app/lib/python3.8/site-packages/PyQt5
-        --stubsdir=/app/lib/python3.8/site-packages/PyQt5
-        QMAKE_CFLAGS_RELEASE='-I/usr/include/python3.8m/'
-        QMAKE_CXXFLAGS_RELEASE='-I/usr/include/python3.8m/'
+        --destdir=/app/lib/python3.9/site-packages/PyQt5
+        --stubsdir=/app/lib/python3.9/site-packages/PyQt5
+        QMAKE_CFLAGS_RELEASE='-I/usr/include/python3.9m/'
+        QMAKE_CXXFLAGS_RELEASE='-I/usr/include/python3.9m/'
         QMAKE_INCDIR+=/app/include/QtWebEngine
         QMAKE_INCDIR+=/app/include/QtWebEngineCore
         QMAKE_INCDIR+=/app/include/QtWebEngineWidgets
@@ -311,7 +304,7 @@ modules:
   - name: python-ly
     buildsystem: simple
     build-commands:
-      - python3 setup.py install --prefix=/app
+      - python setup.py install --prefix=/app
     sources:
       - type: archive
         url: https://github.com/frescobaldi/python-ly/archive/v0.9.7.tar.gz
@@ -323,14 +316,23 @@ modules:
       "easy-install.pth"
     ]
     build-commands:
-      - python3 setup.py build
-      - python3 setup.py install
+      - python setup.py build
+      - python setup.py install
         --prefix=/app
-        --install-lib=/app/lib/python3.8/site-packages
+        --install-lib=/app/lib/python3.9/site-packages
     sources:
       - type: archive
         url: https://github.com/frescobaldi/python-poppler-qt5/archive/v0.75.0.tar.gz
         sha256: 92e6bd8f4ce90ba4e3e0c2ada026b643481ba1b109d45e8fdbdaedca8416a995
+
+  - name: qpageview
+    buildsystem: simple
+    build-commands:
+      - python setup.py install --prefix=/app
+    sources:
+      - type: archive
+        url: https://github.com/frescobaldi/qpageview/archive/refs/tags/v0.6.2.tar.gz
+        sha256: 5ac3140396f11b15d6438ce34d5ce77f8b7e76f7dcd4c0439c85740d9e5d3674
 
   - name: portmidi
     buildsystem: cmake-ninja
@@ -342,8 +344,9 @@ modules:
       - type: archive
         url: https://sourceforge.net/projects/portmedia/files/portmidi/217/portmidi-src-217.zip
         sha256: 08e9a892bd80bdb1115213fb72dc29a7bf2ff108b378180586aa65f3cfd42e0f
+      # Taken from https://github.com/flathub/shared-modules/tree/master/pygame
       - type: patch
-        path: shared-modules/pygame/portmidi-no-java.patch
+        path: patches/portmidi-no-java.patch
     cleanup:
       - /bin
       - /lib/pkgconfig
@@ -358,14 +361,8 @@ modules:
       - python3 setup.py install --prefix=/app --root=/
     sources:
       - type: archive
-        url: https://github.com/frescobaldi/frescobaldi/releases/download/v3.1.3/frescobaldi-3.1.3.tar.gz
-        sha256: 9c7f5036f367691454753f1db06ea02c33501c1e4f24bfb47485103911f3e9c1
+        url: https://github.com/frescobaldi/frescobaldi/releases/download/v3.2/frescobaldi-3.2.tar.gz
+        sha256: 4d707b5b35392f84d904d1cc7ecc36992f8e85f6868fdc5a4983c78a0e850acf
       - type: patch
-        path: patches/Fix-syntax-errors-in-NEWS.patch
-
-cleanup-commands:
-  - /app/cleanup-BaseApp.sh
-
-cleanup:
-  - /share/man
+        path: patches/frescobaldi-metainfo-fixed.patch
 
