@@ -187,8 +187,8 @@ modules:
       - --prefix=/app/dev
     sources:
       - type: archive
-        url: https://gitlab.com/lilypond/lilypond/-/archive/v2.23.11/lilypond-v2.23.11.tar.gz
-        sha256: cd35326c4a8e779599b7c561be75bf67d1e7c7759046921d9df4e422a1e0390f
+        url: https://lilypond.org/download/sources/v2.23/lilypond-2.23.13.tar.gz
+        sha256: 17a9d1ad0ec7d1b7501b742d6b65ef371c88007537a7b8cbc9d54573270ddf0a
     build-options:
       arch:
         aarch64:
