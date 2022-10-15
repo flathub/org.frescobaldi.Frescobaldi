@@ -179,12 +179,17 @@ modules:
       - type: archive
         url: https://ftp.gnu.org/gnu/guile/guile-2.2.7.tar.xz
         sha256: cdf776ea5f29430b1258209630555beea6d2be5481f9da4d64986b077ff37504
+      - type: patch
+        path: patches/guile2-never-recompile.patch
 
   - name: lilypond-dev
-    buildsystem: autotools
-    config-opts:
-      - --disable-documentation
-      - --prefix=/app/dev
+    buildsystem: simple
+    build-commands:
+      - ./configure --disable-documentation --prefix=/app/dev --enable-cairo-backend
+      - make
+      - make bytecode
+      - make install
+      - make install-bytecode
     sources:
       - type: archive
         url: https://lilypond.org/download/sources/v2.23/lilypond-2.23.14.tar.gz

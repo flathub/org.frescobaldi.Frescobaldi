@@ -1,0 +1,13 @@
+diff --git a/libguile/load.c b/libguile/load.c
+index c209812dc..725fe5ae3 100644
+--- a/libguile/load.c
++++ b/libguile/load.c
+@@ -570,7 +570,7 @@ compiled_is_fresh (SCM full_filename, SCM compiled_filename,
+       scm_puts ("\n", scm_current_warning_port ());
+     }
+ 
+-  return compiled_is_newer;
++  return 1;
+ }
+ 
+ static SCM
