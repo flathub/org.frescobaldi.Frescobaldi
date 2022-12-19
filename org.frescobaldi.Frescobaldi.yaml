@@ -35,34 +35,6 @@ finish-args:
 #  - --env=QT_QPA_PLATFORM=xcb
 
 modules:
-  - name: guile
-    buildsystem: autotools
-    build-options:
-      cflags: "-Wno-unused-but-set-variable -Wno-misleading-indentation
-              -Wno-stringop-truncation -Wno-deprecated-declarations"
-    config-opts:
-      - --disable-error-on-warning
-      - --disable-static
-    # Patches copied from https://src.fedoraproject.org/rpms/compat-guile18/tree/master
-    sources:
-      - type: archive
-        url: https://ftp.gnu.org/gnu/guile/guile-1.8.8.tar.gz
-        sha256: c3471fed2e72e5b04ad133bbaaf16369e8360283679bcf19800bc1b381024050
-      - type: patch
-        path: patches/guile-1.8.8-deplibs.patch
-      - type: patch
-        path: patches/guile-1.8.8-cve-2016-8605.patch
-      - type: patch
-        path: patches/guile-1.8.8-configure.patch
-      # Files in the tarball are too old for aarch64 so we take them from the Sdk.
-      - type: shell
-        commands:
-          - cp -fp /usr/share/automake-*/config.{sub,guess} build-aux/
-          - cp -fp /usr/share/automake-*/config.{sub,guess} guile-readline/
-    cleanup:
-      - /include
-      - /share/aclocal
-
   - name: pango
     buildsystem: meson
     sources:
@@ -143,24 +115,6 @@ modules:
       - /bin/gpcl6
       - /bin/gxps
 
-  - name: lilypond
-    buildsystem: autotools
-    config-opts:
-      - --disable-documentation
-    sources:
-      - type: archive
-        url: https://lilypond.org/download/sources/v2.22/lilypond-2.22.2.tar.gz
-        sha256: dde90854fa7de1012f4e1304a68617aea9ab322932ec0ce76984f60d26aa23be
-      - type: shell
-        commands:
-          - cp -p /usr/share/automake-*/config.{sub,guess} config/
-    build-options:
-      arch:
-        aarch64:
-          prepend-path: /usr/lib/sdk/texlive/bin/aarch64-linux:/usr/lib/sdk/texlive/bin
-        x86_64:
-          prepend-path: /usr/lib/sdk/texlive/bin/x86_64-linux:/usr/lib/sdk/texlive/bin
-
   - name: guile2
     modules:
       - name: gc
@@ -182,24 +136,44 @@ modules:
       - type: patch
         path: patches/guile2-never-recompile.patch
 
-  - name: lilypond-dev
+  - name: lilypond
     buildsystem: simple
     build-commands:
-      - ./configure --disable-documentation --prefix=/app/dev --enable-cairo-backend
+      - ./configure --prefix=/app --disable-documentation --enable-cairo-backend
       - make
       - make bytecode
       - make install
       - make install-bytecode
     sources:
       - type: archive
-        url: https://lilypond.org/download/sources/v2.23/lilypond-2.23.82.tar.gz
-        sha256: 043c736ffe4e783dbb3b134d38192f87fe78d2bd2a8287c7cbbdfd7acc5a22c3
+        url: https://lilypond.org/download/sources/v2.24/lilypond-2.24.0.tar.gz
+        sha256: 3cedbe3b92b02569e3a6f2f0674858967b3da278d70aa3e98aef5bdcd7f78b69
     build-options:
       arch:
         aarch64:
           prepend-path: /usr/lib/sdk/texlive/bin/aarch64-linux:/usr/lib/sdk/texlive/bin
         x86_64:
           prepend-path: /usr/lib/sdk/texlive/bin/x86_64-linux:/usr/lib/sdk/texlive/bin
+
+# LilyPond 2.25.0 not released yet.
+#  - name: lilypond-dev
+#    buildsystem: simple
+#    build-commands:
+#      - ./configure --disable-documentation --prefix=/app/dev --enable-cairo-backend
+#      - make
+#      - make bytecode
+#      - make install
+#      - make install-bytecode
+#    sources:
+#      - type: archive
+#        url: https://lilypond.org/download/sources/v2.23/lilypond-2.23.82.tar.gz
+#        sha256: 043c736ffe4e783dbb3b134d38192f87fe78d2bd2a8287c7cbbdfd7acc5a22c3
+#    build-options:
+#      arch:
+#        aarch64:
+#          prepend-path: /usr/lib/sdk/texlive/bin/aarch64-linux:/usr/lib/sdk/texlive/bin
+#        x86_64:
+#          prepend-path: /usr/lib/sdk/texlive/bin/x86_64-linux:/usr/lib/sdk/texlive/bin
 
   - name: poppler
     buildsystem: cmake-ninja
