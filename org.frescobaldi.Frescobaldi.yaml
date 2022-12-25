@@ -155,25 +155,24 @@ modules:
         x86_64:
           prepend-path: /usr/lib/sdk/texlive/bin/x86_64-linux:/usr/lib/sdk/texlive/bin
 
-# LilyPond 2.25.0 not released yet.
-#  - name: lilypond-dev
-#    buildsystem: simple
-#    build-commands:
-#      - ./configure --disable-documentation --prefix=/app/dev --enable-cairo-backend
-#      - make
-#      - make bytecode
-#      - make install
-#      - make install-bytecode
-#    sources:
-#      - type: archive
-#        url: https://lilypond.org/download/sources/v2.23/lilypond-2.23.82.tar.gz
-#        sha256: 043c736ffe4e783dbb3b134d38192f87fe78d2bd2a8287c7cbbdfd7acc5a22c3
-#    build-options:
-#      arch:
-#        aarch64:
-#          prepend-path: /usr/lib/sdk/texlive/bin/aarch64-linux:/usr/lib/sdk/texlive/bin
-#        x86_64:
-#          prepend-path: /usr/lib/sdk/texlive/bin/x86_64-linux:/usr/lib/sdk/texlive/bin
+  - name: lilypond-dev
+    buildsystem: simple
+    build-commands:
+      - ./configure --disable-documentation --prefix=/app/dev --enable-cairo-backend
+      - make
+      - make bytecode
+      - make install
+      - make install-bytecode
+    sources:
+      - type: archive
+        url: https://lilypond.org/download/sources/v2.25/lilypond-2.25.0.tar.gz
+        sha256: b6ea9272c5fcc2ad663f120163e208b14fe59743d40f2578ec016c178ecf1826
+    build-options:
+      arch:
+        aarch64:
+          prepend-path: /usr/lib/sdk/texlive/bin/aarch64-linux:/usr/lib/sdk/texlive/bin
+        x86_64:
+          prepend-path: /usr/lib/sdk/texlive/bin/x86_64-linux:/usr/lib/sdk/texlive/bin
 
   - name: poppler
     buildsystem: cmake-ninja
