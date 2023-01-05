@@ -1,14 +1,13 @@
 ---
 app-id: org.frescobaldi.Frescobaldi
 
-base: io.qt.qtwebengine.BaseApp
-base-version: '5.15-21.08'
-
 runtime: org.kde.Platform
 runtime-version: '5.15-21.08'
 sdk: org.kde.Sdk
 sdk-extensions:
   - org.freedesktop.Sdk.Extension.texlive
+base: com.riverbankcomputing.PyQt.BaseApp
+base-version: 5.15-21.08
 
 command: frescobaldi
 
@@ -35,18 +34,6 @@ finish-args:
 #  - --env=QT_QPA_PLATFORM=xcb
 
 modules:
-  - name: pango
-    buildsystem: meson
-    sources:
-      - type: archive
-        url: https://download.gnome.org/sources/pango/1.42/pango-1.42.4.tar.xz
-        sha256: 1d2b74cd63e8bd41961f2f8d952355aa0f9be6002b52c8aa7699d9f5da597c9d
-    cleanup:
-      - /include
-      - /libexec/installed-tests
-      - /share/doc/fontforge
-      - /share/installed-tests
-
   # Fontforge build dependency
   - name: libuinameslist
     sources:
@@ -135,6 +122,9 @@ modules:
         sha256: cdf776ea5f29430b1258209630555beea6d2be5481f9da4d64986b077ff37504
       - type: patch
         path: patches/guile2-never-recompile.patch
+    cleanup:
+      - /share/aclocal
+      - /share/info
 
   - name: lilypond
     buildsystem: simple
@@ -191,93 +181,8 @@ modules:
       - /include
     sources:
       - type: archive
-        url: https://poppler.freedesktop.org/poppler-21.06.1.tar.xz
-        sha256: 86b09e5a02de40081a3916ef8711c5128eaf4b1fc59d5f87d0ec66f04f595db4
-
-  - name: sip
-    buildsystem: simple
-    build-commands:
-      - python configure.py
-        --bindir=/app/bin
-        --destdir=/app/lib/python3.9/site-packages
-        --incdir=/app/include
-        --sipdir=/app/share/sip
-        --stubsdir=/app/lib/python3.9/site-packages
-        --sip-module=PyQt5.sip
-      - make -j $FLATPAK_BUILDER_N_JOBS
-      - make install
-    sources:
-      - type: archive
-        url: https://distfiles.macports.org/py-sip/sip-4.19.24.tar.gz
-        sha256: edcd3790bb01938191eef0f6117de0bf56d1136626c0ddb678f3a558d62e41e5
-    cleanup:
-      - /bin
-
-  - name: PyQt5
-    build-options:
-      env:
-        - QMAKEPATH=/app/lib
-      arch:
-        aarch64:
-          config-opts:
-            - --disable-feature=PyQt_Desktop_OpenGL
-    config-opts:
-      - --confirm-license
-      - --bindir=/app/bin
-      - --destdir=/app/lib/python3.9/site-packages
-      - --sipdir=/app/share/sip
-      - --sip-incdir=/app/include
-      - --stubsdir=/app/lib/python3.9/site-packages/PyQt5
-      - --no-designer-plugin
-      - --no-qml-plugin
-      - --enable QtCore
-      - --enable QtGui
-      - --enable QtNetwork
-      - --enable QtPrintSupport
-      - --enable QtSvg
-      - --enable QtWebChannel
-      - --enable QtWidgets
-      - QMAKE_CFLAGS_RELEASE='-I/usr/include/python3.9/'
-      - QMAKE_CXXFLAGS_RELEASE='-I/usr/include/python3.9/'
-    cleanup:
-      - /bin
-      - /include
-    sources:
-      - type: archive
-        url: https://files.pythonhosted.org/packages/28/6c/640e3f5c734c296a7193079a86842a789edb7988dca39eab44579088a1d1/PyQt5-5.15.2.tar.gz
-        sha256: 372b08dc9321d1201e4690182697c5e7ffb2e0770e6b4a45519025134b12e4fc
-      - type: script
-        dest-filename: configure
-        commands:
-          - processed=`sed -e 's|prefix|sysroot|' <<< $@`
-          - python configure.py $processed
-
-  - name: PyQt5-WebEngine
-    buildsystem: simple
-    build-options:
-      env:
-        - QMAKEPATH=/app/lib
-    build-commands:
-      - python configure.py
-        --concatenate --no-dist-info --no-docstrings
-        --no-qsci-api --no-sip-files
-        --pyqt-sipdir=/app/share/sip
-        --destdir=/app/lib/python3.9/site-packages/PyQt5
-        --stubsdir=/app/lib/python3.9/site-packages/PyQt5
-        QMAKE_CFLAGS_RELEASE='-I/usr/include/python3.9m/'
-        QMAKE_CXXFLAGS_RELEASE='-I/usr/include/python3.9m/'
-        QMAKE_INCDIR+=/app/include/QtWebEngine
-        QMAKE_INCDIR+=/app/include/QtWebEngineCore
-        QMAKE_INCDIR+=/app/include/QtWebEngineWidgets
-      - make -j $FLATPAK_BUILDER_N_JOBS
-      - make install
-    sources:
-      - type: archive
-        url: https://files.pythonhosted.org/packages/36/43/bd66139dc1b3abeaf4c79ee19de9eed9376f394113525de00494086a3773/PyQtWebEngine-5.15.2.tar.gz
-        sha256: 4d72fea774071ce6f76e341a3d2c5d595886c9906a9b9493239c841cce54a634
-    cleanup:
-      - /include
-      - /lib/debug
+        url: https://poppler.freedesktop.org/poppler-21.08.0.tar.xz
+        sha256: e9cf5dc5964bce4bb0264d1c4f8122706c910588b421cfc30abc97d6b23e602d
 
   - name: python-ly
     buildsystem: simple
@@ -290,18 +195,12 @@ modules:
 
   - name: python-poppler-qt5
     buildsystem: simple
-    ensure-writable: [
-      "easy-install.pth"
-    ]
     build-commands:
-      - python setup.py build
-      - python setup.py install
-        --prefix=/app
-        --install-lib=/app/lib/python3.9/site-packages
+      - sip-install --verbose --target-dir /app/lib/python3.9/site-packages
     sources:
       - type: archive
-        url: https://github.com/frescobaldi/python-poppler-qt5/archive/v0.75.0.tar.gz
-        sha256: 92e6bd8f4ce90ba4e3e0c2ada026b643481ba1b109d45e8fdbdaedca8416a995
+        url: https://github.com/frescobaldi/python-poppler-qt5/archive/refs/tags/v21.3.0.zip
+        sha256: 208f23089046eebe5db1e169a9f4873c35fe3f6c83b87eff177070367e1ede41
 
   - name: qpageview
     buildsystem: simple
