@@ -155,8 +155,8 @@ modules:
       - make install-bytecode
     sources:
       - type: archive
-        url: https://lilypond.org/download/sources/v2.25/lilypond-2.25.0.tar.gz
-        sha256: b6ea9272c5fcc2ad663f120163e208b14fe59743d40f2578ec016c178ecf1826
+        url: https://lilypond.org/download/sources/v2.25/lilypond-2.25.1.tar.gz
+        sha256: 0dc858fb8f9b588bd365be2ff6afdf02a4ad91bb311e1bedcb77aeaf4645615b
     build-options:
       arch:
         aarch64:
