@@ -2,12 +2,12 @@
 app-id: org.frescobaldi.Frescobaldi
 
 runtime: org.kde.Platform
-runtime-version: '5.15-21.08'
+runtime-version: '5.15-22.08'
 sdk: org.kde.Sdk
 sdk-extensions:
   - org.freedesktop.Sdk.Extension.texlive
 base: com.riverbankcomputing.PyQt.BaseApp
-base-version: 5.15-21.08
+base-version: 5.15-22.08
 
 command: frescobaldi
 
@@ -29,7 +29,7 @@ finish-args:
   - --socket=pulseaudio
   - --socket=x11
 # See Wayland bugs:
-# https://github.com/frescobaldi/frescobaldi/issues?q=is%3Aissue+is%3Aopen+wayland+in%3Atitle
+# https://github.com/frescobaldi/frescobaldi/labels/wayland
 #  - --socket=wayland
 #  - --env=QT_QPA_PLATFORM=xcb
 
@@ -78,21 +78,23 @@ modules:
   - name: ghostscript
     sources:
       - type: archive
-        url: https://github.com/ArtifexSoftware/ghostpdl-downloads/releases/download/gs9533/ghostscript-9.53.3.tar.xz
-        sha256: 9c9f5bc85b6c7eb08368c05b1e3339f7aaf9677ddca710c6283f872d55e2a234
-      - type: shell
-        commands:
-          - cp -p /usr/share/automake-*/config.{sub,guess} freetype/builds/unix/
-          - cp -p /usr/share/automake-*/config.{sub,guess} ijs/
-          - cp -p /usr/share/automake-*/config.{sub,guess} jpeg/
-          - cp -p /usr/share/automake-*/config.{sub,guess} libpng/
-          - cp -p /usr/share/automake-*/config.{sub,guess} lcms2mt/
-          - cp -p /usr/share/automake-*/config.{sub,guess} tiff/config/
-          - cp -p /usr/share/automake-*/config.{sub,guess} .
+        url: https://github.com/ArtifexSoftware/ghostpdl-downloads/releases/download/gs9561/ghostscript-9.56.1.tar.xz
+        sha256: d43406805650009b42c3d5f6dc535233454533c1e27c13a77dd1d462a056b8e4
     config-opts:
+      - --disable-contrib
       - --disable-cups
+      - --disable-dbus
+      - --disable-fontconfig
       - --disable-gtk
-      - --enable-dynamic
+      - --with-drivers=PNG,PS
+      - --without-cal
+      - --without-ijs
+      - --without-libidn
+      - --without-libpaper
+      - --without-libtiff
+      - --without-pdftoraster
+      - --without-urf
+      - --without-x
     make-args:
       - so
     make-install-args:
@@ -155,8 +157,8 @@ modules:
       - make install-bytecode
     sources:
       - type: archive
-        url: https://lilypond.org/download/sources/v2.25/lilypond-2.25.2.tar.gz
-        sha256: 676b2c845dd735b00e31a8a34a776e0d5c9b020147575cbce5c527a9f0565fed
+        url: https://lilypond.org/download/sources/v2.25/lilypond-2.25.3.tar.gz
+        sha256: 09530cccbdf535677a3ca7faea6d1cb415c5a6a1ccc314226ee89f694f657ed8
     build-options:
       arch:
         aarch64:
@@ -187,7 +189,7 @@ modules:
   - name: python-ly
     buildsystem: simple
     build-commands:
-      - python setup.py install --prefix=/app
+      - pip install --prefix=/app .
     sources:
       - type: archive
         url: https://github.com/frescobaldi/python-ly/archive/v0.9.7.tar.gz
@@ -196,7 +198,7 @@ modules:
   - name: python-poppler-qt5
     buildsystem: simple
     build-commands:
-      - sip-install --verbose --target-dir /app/lib/python3.9/site-packages
+      - sip-install --verbose --target-dir /app/lib/python/site-packages
     sources:
       - type: archive
         url: https://github.com/frescobaldi/python-poppler-qt5/archive/refs/tags/v21.3.0.zip
@@ -205,7 +207,7 @@ modules:
   - name: qpageview
     buildsystem: simple
     build-commands:
-      - python setup.py install --prefix=/app
+      - pip install --prefix=/app .
     sources:
       - type: archive
         url: https://github.com/frescobaldi/qpageview/archive/refs/tags/v0.6.2.tar.gz
@@ -235,11 +237,9 @@ modules:
     buildsystem: simple
     build-commands:
       - make -C linux
-      - python3 setup.py install --prefix=/app --root=/
+      - pip install --prefix=/app .
     sources:
       - type: archive
-        url: https://github.com/frescobaldi/frescobaldi/releases/download/v3.2/frescobaldi-3.2.tar.gz
-        sha256: 4d707b5b35392f84d904d1cc7ecc36992f8e85f6868fdc5a4983c78a0e850acf
-      - type: patch
-        path: patches/frescobaldi-metainfo-fixed.patch
+        url: https://github.com/frescobaldi/frescobaldi/releases/download/v3.3.0/frescobaldi-3.3.0.tar.gz
+        sha256: 9fb90934fbc08f6c7df0a4d999e89a9a82fe9b4a0f21c0d40a1474e3ac7bc0d8
 
