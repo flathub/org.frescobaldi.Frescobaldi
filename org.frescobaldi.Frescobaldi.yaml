@@ -189,7 +189,7 @@ modules:
   - name: python-ly
     buildsystem: simple
     build-commands:
-      - pip install --prefix=/app .
+      - pip install --no-build-isolation --prefix=/app .
     sources:
       - type: archive
         url: https://github.com/frescobaldi/python-ly/archive/v0.9.8.tar.gz
