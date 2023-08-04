@@ -256,4 +256,4 @@ modules:
       - type: git
         url: https://github.com/jeanas/frescobaldi.git
         branch: autoinstall
-        commit: afbd62c8c5a0bcb9aef603de35144bcf64382dbd
+        commit: 2ed2a4b3be562eb8fdc047ce6e6aa6f88a8c6a19
