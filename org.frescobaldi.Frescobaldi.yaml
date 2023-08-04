@@ -233,6 +233,15 @@ modules:
       - '*.a'
       - '*.la'
 
+  - name: tox
+    buildsystem: simple
+    build-commands:
+      - pip install --prefix=/app .
+    sources:
+      - type: archive
+        url: https://github.com/tox-dev/tox/archive/refs/tags/4.6.4.tar.gz
+        sha256: b71ed5857b202086acae73c4d8fd58a98004737b9b5cb31cd505f333d504de89
+
   - name: frescobaldi
     buildsystem: simple
     build-commands:
