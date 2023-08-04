@@ -34,6 +34,18 @@ finish-args:
 #  - --env=QT_QPA_PLATFORM=xcb
 
 modules:
+  - name: tox
+    buildsystem: simple
+    build-commands:
+      # Create a venv for tox, we don't want to install it into /app since it's
+      # not needed in the eventual Flatpak package, and /usr is read-only.
+      - python -m venv tox-venv
+      - tox-venv/bin/pip install tox-4.6.4-py3-none-any.whl
+    sources:
+      - type: file
+        url: https://files.pythonhosted.org/packages/45/ff/a9e20a27e0f4dce205a1a93e4f15256315709a203cbf414fe8ee1dde85ef/tox-4.6.4-py3-none-any.whl
+        sha256: 1b8f8ae08d6a5475cad9d508236c51ea060620126fd7c3c513d0f5c7f29cc776
+
   # Fontforge build dependency
   - name: libuinameslist
     sources:
@@ -236,9 +248,18 @@ modules:
   - name: frescobaldi
     buildsystem: simple
     build-commands:
-      - make -C linux
-      - pip install --prefix=/app .
+      - tox-venv/bin/tox -e mo-generate
+      - pip install --no-build-isolation --prefix=/app .
+      # Generate the desktop file and the metainfo file
+      - tox-venv/bin/tox -e linux-generate
+      # Install the desktop file
+      - cp linux/org.frescobaldi.Frescobaldi.desktop /app/share/applications/
+      # Install the metainfo file
+      - cp linux/org.frescobaldi.Frescobaldi.metainfo.xml /app/share/metainfo/
+      # Install the icon
+      - cp frescobaldi_app/icons/org.frescobaldi.Frescobaldi.svg /app/share/icons/hicolor/scalable/apps/
     sources:
-      - type: archive
-        url: https://github.com/frescobaldi/frescobaldi/releases/download/v3.3.0/frescobaldi-3.3.0.tar.gz
-        sha256: 9fb90934fbc08f6c7df0a4d999e89a9a82fe9b4a0f21c0d40a1474e3ac7bc0d8
+      - type: git
+        url: https://github.com/jeanas/frescobaldi.git
+        branch: autoinstall
+        commit: afbd62c8c5a0bcb9aef603de35144bcf64382dbd
