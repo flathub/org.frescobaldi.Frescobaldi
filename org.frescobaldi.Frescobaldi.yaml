@@ -138,8 +138,8 @@ modules:
       - make install-bytecode
     sources:
       - type: archive
-        url: https://lilypond.org/download/sources/v2.24/lilypond-2.24.1.tar.gz
-        sha256: d5c59087564a5cd6f08a52ba80e7d6509b91c585e44385dcc0fa39265d181509
+        url: https://lilypond.org/download/sources/v2.24/lilypond-2.24.2.tar.gz
+        sha256: 7944e610d7b4f1de4c71ccfe1fbdd3201f54fac54561bdcd048914f8dbb60a48
     build-options:
       arch:
         aarch64:
