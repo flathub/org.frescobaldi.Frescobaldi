@@ -20,9 +20,7 @@ cleanup:
 finish-args:
   - --env=QTWEBENGINEPROCESS_PATH=/app/bin/QtWebEngineProcess
   - --env=PATH=/app/bin:/app/dev/bin:/usr/bin
-  - --filesystem=xdg-documents
-  - --filesystem=xdg-download
-  - --filesystem=xdg-music
+  - --filesystem=home
   - --share=ipc
   - --share=network
   - --device=all
