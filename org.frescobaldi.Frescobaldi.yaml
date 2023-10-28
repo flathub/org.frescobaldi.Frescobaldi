@@ -52,6 +52,9 @@ modules:
       - type: archive
         url: https://github.com/fontforge/fontforge/archive/refs/tags/20230101.tar.gz
         sha256: ab0c4be41be15ce46a1be1482430d8e15201846269de89df67db32c7de4343f1
+      # From https://src.fedoraproject.org/rpms/fontforge/blob/rawhide/f/0001-Fix-errors-in-French-and-Italian-translations.patch
+      - type: patch
+        path: patches/fontforge-translation-errors.patch
     cleanup:
       - "*"
 
