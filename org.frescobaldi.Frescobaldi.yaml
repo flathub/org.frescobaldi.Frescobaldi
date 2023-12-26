@@ -187,6 +187,14 @@ modules:
         url: https://poppler.freedesktop.org/poppler-21.08.0.tar.xz
         sha256: e9cf5dc5964bce4bb0264d1c4f8122706c910588b421cfc30abc97d6b23e602d
 
+  # Needed to correctly render some fonts, see https://github.com/frescobaldi/frescobaldi/issues/1058
+  - name: poppler-data
+    buildsystem: cmake-ninja
+    sources:
+      - type: archive
+        url: https://poppler.freedesktop.org/poppler-data-0.4.12.tar.gz
+        sha256: c835b640a40ce357e1b83666aabd95edffa24ddddd49b8daff63adb851cdab74
+
   - name: python-ly
     buildsystem: simple
     build-commands:
