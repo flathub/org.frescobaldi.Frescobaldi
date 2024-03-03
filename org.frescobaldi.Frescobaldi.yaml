@@ -151,15 +151,21 @@ modules:
   - name: lilypond-dev
     buildsystem: simple
     build-commands:
+      - ./autogen.sh --noconfigure
       - ./configure --disable-documentation --prefix=/app/dev --enable-cairo-backend
       - make
       - make bytecode
       - make install
       - make install-bytecode
     sources:
-      - type: archive
-        url: https://lilypond.org/download/sources/v2.25/lilypond-2.25.12.tar.gz
-        sha256: eb339afa6bd737549062052299dc64610fc487e89a09bf857977bf76095b1e69
+      - type: git
+        url: https://gitlab.com/lilypond/lilypond.git
+        tag: v2.25.12
+        commit: e0ba6220c818a6299a225f6a24f77ec98dc79a82
+        x-checker-data:
+          type: git
+          tag-pattern: ^v([\\d.]+)$
+          is-important: true
     build-options:
       arch:
         aarch64:
