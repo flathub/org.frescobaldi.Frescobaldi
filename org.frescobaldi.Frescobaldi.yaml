@@ -257,3 +257,5 @@ modules:
       - type: archive
         url: https://github.com/frescobaldi/frescobaldi/releases/download/v3.3.0/frescobaldi-3.3.0.tar.gz
         sha256: 9fb90934fbc08f6c7df0a4d999e89a9a82fe9b4a0f21c0d40a1474e3ac7bc0d8
+      - type: patch
+        path: patches/frescobaldi-metainfo-fix.patch
