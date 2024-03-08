@@ -1,8 +1,7 @@
----
 app-id: org.frescobaldi.Frescobaldi
 
 runtime: org.kde.Platform
-runtime-version: '5.15-23.08'
+runtime-version: 5.15-23.08
 sdk: org.kde.Sdk
 sdk-extensions:
   - org.freedesktop.Sdk.Extension.texlive
@@ -39,7 +38,7 @@ modules:
         url: https://github.com/fontforge/libuninameslist/releases/download/20180701/libuninameslist-dist-20180701.tar.gz
         sha256: 8aed97d0bc872d893d8bf642a14e49958b0613136e1bfe2a415c69599c803c90
     cleanup:
-      - "*"
+      - '*'
 
   - name: fontforge
     buildsystem: cmake-ninja
@@ -56,7 +55,7 @@ modules:
       - type: patch
         path: patches/fontforge-translation-errors.patch
     cleanup:
-      - "*"
+      - '*'
 
   - name: t1utils
     sources:
@@ -64,7 +63,7 @@ modules:
         url: https://github.com/kohler/t1utils/archive/v1.41.tar.gz
         sha256: 0129fbfabb212143f52ff1e5de8ccbef5e5295d46772bad3ed149115bab5a094
     cleanup:
-      - "*"
+      - '*'
 
   - name: texgyre
     sources:
@@ -160,8 +159,8 @@ modules:
     sources:
       - type: git
         url: https://gitlab.com/lilypond/lilypond.git
-        tag: v2.25.12
-        commit: e0ba6220c818a6299a225f6a24f77ec98dc79a82
+        tag: v2.25.13
+        commit: 0c0ccafd27163a1676aaf570c403f8fbc8fed509
         x-checker-data:
           type: git
           tag-pattern: ^v([\d.]+)$
