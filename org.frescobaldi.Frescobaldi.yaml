@@ -164,7 +164,7 @@ modules:
         commit: e0ba6220c818a6299a225f6a24f77ec98dc79a82
         x-checker-data:
           type: git
-          tag-pattern: ^v([\\d.]+)$
+          tag-pattern: ^v([\d.]+)$
           is-important: true
     build-options:
       arch:
