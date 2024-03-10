@@ -151,7 +151,7 @@ modules:
     buildsystem: simple
     build-commands:
       - ./autogen.sh --noconfigure
-      - ./configure --disable-documentation --prefix=/app/dev --enable-cairo-backend
+      - GUILE_FLAVOR=guile-2.2 ./configure --disable-documentation --prefix=/app/dev
       - make
       - make bytecode
       - make install
