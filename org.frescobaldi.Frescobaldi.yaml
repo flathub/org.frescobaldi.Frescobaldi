@@ -148,10 +148,19 @@ modules:
           prepend-path: /usr/lib/sdk/texlive/bin/x86_64-linux:/usr/lib/sdk/texlive/bin
 
   - name: lilypond-dev
+    modules:
+      - name: guile3
+        buildsystem: autotools
+        build-options:
+          no-debuginfo: true
+        sources:
+          - type: archive
+            url: https://ftp.gnu.org/gnu/guile/guile-3.0.9.tar.xz
+            sha256: 1a2625ac72b2366e95792f3fe758fd2df775b4044a90a4a9787326e66c0d750d
     buildsystem: simple
     build-commands:
       - ./autogen.sh --noconfigure
-      - GUILE_FLAVOR=guile-2.2 ./configure --disable-documentation --prefix=/app/dev
+      - ./configure --disable-documentation --prefix=/app/dev
       - make
       - make bytecode
       - make install
