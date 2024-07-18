@@ -22,7 +22,23 @@ NOTE: self-compiled LilyPond will likely not work.
 
 ## Beta branch
 
-The beta branch of this repository will be used to test the latest unreleased
-Frescobaldi (if there's anything interesting to try) and/or a peculiar
-LilyPond installation (new features or dependencies).
+The beta branch of this repository is used to test the latest
+(unreleased) changes from the GitHub master branch.
 
+First add the Flathub Beta repository:
+
+```
+flatpak remote-add --if-not-exists flathub-beta https://flathub.org/beta-repo/flathub-beta.flatpakrepo
+```
+
+and install the flatpak version present in that repository:
+
+```
+flatpak install flathub-beta org.frescobaldi.Frescobaldi
+```
+
+You can now run the beta branch with the following command:
+
+```
+flatpak run --branch=beta org.frescobaldi.Frescobaldi
+```
