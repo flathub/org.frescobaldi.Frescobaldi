@@ -151,12 +151,18 @@ modules:
     modules:
       - name: guile3
         buildsystem: autotools
+        config-opts:
+          - --disable-networking
+          - --disable-error-on-warning
+          - --disable-lto
         build-options:
           no-debuginfo: true
         sources:
           - type: archive
-            url: https://ftp.gnu.org/gnu/guile/guile-3.0.9.tar.xz
-            sha256: 1a2625ac72b2366e95792f3fe758fd2df775b4044a90a4a9787326e66c0d750d
+            url: https://ftp.gnu.org/gnu/guile/guile-3.0.10.tar.xz
+            sha256: bd7168517fd526333446d4f7ab816527925634094fbd37322e17e2b8d8e76388
+          - type: patch
+            path: patches/guile-prebuilt-bytecode.patch
     buildsystem: simple
     build-commands:
       - ./autogen.sh --noconfigure
