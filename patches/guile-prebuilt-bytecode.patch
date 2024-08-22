@@ -1,0 +1,30 @@
+From 95f15821c535537c7ad4fdae1988855314d56ece Mon Sep 17 00:00:00 2001
+From: Jonas Hahnfeld <hahnjo@hahnjo.de>
+Date: Thu, 4 Jan 2024 11:44:55 +0100
+Subject: [PATCH] Speed up stage0 bootstrap build using prebuilts
+
+Use prebuilt bytecode of ice-9/eval.go and others for all of stage0,
+it is optimized and evaluation is much faster. In my environment,
+this speeds up the build of guile-3.0.9 from around 29 minutes to
+only 19 minutes.
+
+* meta/build-env.in: In stage0, prefer prebuilt bytecode over just
+compiled stage0 files.
+---
+meta/build-env.in | 2 +-
+1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/meta/build-env.in b/meta/build-env.in
+index bdc88ded4..446a536af 100644
+--- a/meta/build-env.in
++++ b/meta/build-env.in
+@@ -58,7 +58,7 @@ then
+     fi
+     export GUILE_LOAD_PATH
+     case "$GUILE_BOOTSTRAP_STAGE" in
+-        stage0) GUILE_LOAD_COMPILED_PATH="${top_builddir}/stage0:${top_srcdir}/prebuilt/@SCM_PREBUILT_BINARIES@" ;;
++        stage0) GUILE_LOAD_COMPILED_PATH="${top_srcdir}/prebuilt/@SCM_PREBUILT_BINARIES@:${top_builddir}/stage0" ;;
+         stage1) GUILE_LOAD_COMPILED_PATH="${top_builddir}/stage1:${top_builddir}/stage0" ;;
+         stage2) GUILE_LOAD_COMPILED_PATH="${top_builddir}/stage1" ;;
+         *) GUILE_LOAD_COMPILED_PATH="${top_builddir}/stage2:${top_builddir}/guile-readline" ;;
+
