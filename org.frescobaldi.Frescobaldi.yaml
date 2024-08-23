@@ -249,4 +249,4 @@ modules:
       - type: git
         url: https://github.com/bmjcode/frescobaldi.git
         branch: qt6
-        commit: c139635b9553c3ff67c60e2658ee317157aead73
+        commit: 5ffd2e3f4a4a271e1ac6c10264c7ad82d414c1cd
