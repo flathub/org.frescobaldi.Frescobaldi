@@ -209,7 +209,6 @@ modules:
     sources:
       - type: git
         url: https://github.com/bmjcode/qpageview
-        branch: qt6
         commit: 808af50534b80f9c4df3e6ab3f7f55de7877c6cb
 
   - name: portmidi
@@ -248,5 +247,4 @@ modules:
     sources:
       - type: git
         url: https://github.com/bmjcode/frescobaldi.git
-        branch: qt6
         commit: 5ffd2e3f4a4a271e1ac6c10264c7ad82d414c1cd
