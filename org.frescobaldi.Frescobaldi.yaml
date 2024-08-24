@@ -205,7 +205,7 @@ modules:
   - name: qpageview
     buildsystem: simple
     build-commands:
-      - pip install --prefix=/app .
+      - pip install --no-build-isolation --prefix=/app .
     sources:
       - type: git
         url: https://github.com/bmjcode/qpageview
