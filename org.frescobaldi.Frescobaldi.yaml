@@ -24,11 +24,8 @@ finish-args:
   - --share=network
   - --device=all
   - --socket=pulseaudio
-  - --socket=x11
-# See Wayland bugs:
-# https://github.com/frescobaldi/frescobaldi/labels/wayland
+  - --socket=fallback-x11
   - --socket=wayland
-#  - --env=QT_QPA_PLATFORM=xcb
 
 modules:
   # Fontforge build dependency
