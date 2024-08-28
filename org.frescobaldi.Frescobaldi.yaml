@@ -244,4 +244,4 @@ modules:
     sources:
       - type: git
         url: https://github.com/bmjcode/frescobaldi.git
-        commit: 7ec5fe5989d2efd0e448a459a6a7b6704bf2b7c3
+        commit: 7ee32c0cb3d98677e69378fe8421327c037f6d27
