@@ -206,7 +206,7 @@ modules:
     sources:
       - type: git
         url: https://github.com/bmjcode/qpageview
-        commit: 27d4952efd839fcd070cdbb9b31b9f1dc69ddcec
+        commit: bcd9a1637178f4b80363f392db079803e1d9368a
 
   - name: portmidi
     buildsystem: cmake-ninja
