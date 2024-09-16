@@ -206,7 +206,7 @@ modules:
     sources:
       - type: git
         url: https://github.com/bmjcode/qpageview
-        commit: bcd9a1637178f4b80363f392db079803e1d9368a
+        commit: 177a90a8f4de7609f44a87cbdb8cc6534ff3aa61
 
   - name: portmidi
     buildsystem: cmake-ninja
@@ -244,4 +244,4 @@ modules:
     sources:
       - type: git
         url: https://github.com/bmjcode/frescobaldi.git
-        commit: 422c11a97c3b14489479d506d72691338dcc8810
+        commit: a6532e4db51928fc923f76eccd6505ed2817f7db
