@@ -208,23 +208,23 @@ modules:
         url: https://github.com/frescobaldi/qpageview/releases/download/v1.0.0/qpageview-1.0.0.tar.gz
         sha256: 3662b69112ddba0a03efc475f5acd176930dde4c3db6588d548d417946f30907
 
+  # Taken from https://github.com/flathub/shared-modules/tree/master/pygame
   - name: portmidi
     buildsystem: cmake-ninja
     config-opts:
-      - -DCMAKE_LIBRARY_OUTPUT_DIRECTORY=/app/lib
-      - -DCMAKE_ARCHIVE_OUTPUT_DIRECTORY=/app/lib
-      - -DCMAKE_RUNTIME_OUTPUT_DIRECTORY=/app/bin
+      - -DCMAKE_BUILD_TYPE=Release
+      - -DCMAKE_LIBRARY_OUTPUT_DIRECTORY:STRING=/app/lib
+      - -DCMAKE_ARCHIVE_OUTPUT_DIRECTORY:STRING=/app/lib
+      - -DCMAKE_RUNTIME_OUTPUT_DIRECTORY:STRING=/app/bin
     sources:
       - type: archive
-        url: https://sourceforge.net/projects/portmedia/files/portmidi/217/portmidi-src-217.zip
-        sha256: 08e9a892bd80bdb1115213fb72dc29a7bf2ff108b378180586aa65f3cfd42e0f
-      # Taken from https://github.com/flathub/shared-modules/tree/master/pygame
-      - type: patch
-        path: patches/portmidi-no-java.patch
+        url: https://github.com/PortMidi/portmidi/archive/refs/tags/v2.0.4.tar.gz
+        sha256: 64893e823ae146cabd3ad7f9a9a9c5332746abe7847c557b99b2577afa8a607c
     cleanup:
       - /bin
       - /lib/pkgconfig
       - /include
+      - /share/man
       - '*.a'
       - '*.la'
 
