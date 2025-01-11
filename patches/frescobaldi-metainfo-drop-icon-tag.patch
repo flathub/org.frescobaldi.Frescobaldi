@@ -1,0 +1,26 @@
+From e481f1276cdbfbba739a49c7b6b98cfa91aefc25 Mon Sep 17 00:00:00 2001
+From: Federico Bruni <fede@inventati.org>
+Date: Sat, 11 Jan 2025 21:07:56 +0100
+Subject: [PATCH] Metainfo: drop icon tag
+
+It causes appstreamcli validation to fail:
+https://discourse.flathub.org/t/app-categories-missing-validation-error/8636
+---
+ linux/org.frescobaldi.Frescobaldi.metainfo.xml.in | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/linux/org.frescobaldi.Frescobaldi.metainfo.xml.in b/linux/org.frescobaldi.Frescobaldi.metainfo.xml.in
+index 59e6bae3..cea65c27 100644
+--- a/linux/org.frescobaldi.Frescobaldi.metainfo.xml.in
++++ b/linux/org.frescobaldi.Frescobaldi.metainfo.xml.in
+@@ -3,7 +3,6 @@
+   <id>org.frescobaldi.Frescobaldi</id>
+   <name>Frescobaldi</name>
+   <summary>Write LilyPond music sheets</summary>
+-  <icon type="stock">org.frescobaldi.Frescobaldi</icon>
+   <metadata_license>CC0-1.0</metadata_license>
+   <project_license>GPL-2.0+</project_license>
+   <developer id="org.frescobaldi">
+-- 
+2.47.1
+

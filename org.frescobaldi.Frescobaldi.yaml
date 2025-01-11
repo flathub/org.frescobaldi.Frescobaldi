@@ -245,3 +245,5 @@ modules:
       - type: git
         url: https://github.com/frescobaldi/frescobaldi.git
         commit: eb89720c7d8694d45ed3fd8c469ce5ea815af8bf
+      - type: patch
+        path: patches/frescobaldi-metainfo-drop-icon-tag.patch
