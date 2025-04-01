@@ -1,0 +1,36 @@
+From 1b8b13819bc2ec84a06958420fd06cd9f19b96bf Mon Sep 17 00:00:00 2001
+From: Federico Bruni <fede@inventati.org>
+Date: Mon, 31 Mar 2025 14:32:37 +0200
+Subject: [PATCH] Add non .py files using setuptools-scm plugin
+
+Fixes #1898
+---
+ pyproject.toml | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
+
+diff --git a/pyproject.toml b/pyproject.toml
+index cd06acb3..fc80d025 100644
+--- a/pyproject.toml
++++ b/pyproject.toml
+@@ -1,5 +1,5 @@
+ [build-system]
+-requires = ["setuptools >= 67"]
++requires = ["setuptools >= 67", "setuptools-scm>=8"]
+ build-backend = "setuptools.build_meta"
+ 
+ [project]
+@@ -70,6 +70,11 @@ include = ["frescobaldi*"]
+ [tool.setuptools.dynamic.version]
+ attr = "frescobaldi.appinfo.version"
+ 
++# .mo files are not tracked in git
++# `tox -e mo-generate` needs to be run before `python -m build`
++[tool.setuptools.package-data]
++"*" = ["*.mo"]
++
+ [tool.briefcase]
+ project_name = "Frescobaldi"
+ bundle = "org.frescobaldi"
+-- 
+2.49.0
+
