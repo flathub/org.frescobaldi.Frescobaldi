@@ -78,8 +78,8 @@ modules:
   - name: ghostscript
     sources:
       - type: archive
-        url: https://github.com/ArtifexSoftware/ghostpdl-downloads/releases/download/gs9561/ghostscript-9.56.1.tar.xz
-        sha256: d43406805650009b42c3d5f6dc535233454533c1e27c13a77dd1d462a056b8e4
+        url: https://github.com/ArtifexSoftware/ghostpdl-downloads/releases/download/gs10030/ghostscript-10.03.0.tar.xz
+        sha256: f25ff491a726d883f0b0f9c8af9b895c674cf77cddd814aa3824b3223f439ee5
     config-opts:
       - --disable-contrib
       - --disable-cups
@@ -93,6 +93,7 @@ modules:
       - --without-libpaper
       - --without-libtiff
       - --without-pdftoraster
+      - --without-tesseract
       - --without-urf
       - --without-x
     make-args:
@@ -100,7 +101,9 @@ modules:
     make-install-args:
       - soinstall
     cleanup:
+      - /include
       - /share/doc
+      - /share/man
       - /bin/gpcl6
       - /bin/gxps
 
