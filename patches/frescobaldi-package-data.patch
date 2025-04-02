@@ -1,4 +1,4 @@
-From e6e9bb5d871720595c26776f144d539580abda80 Mon Sep 17 00:00:00 2001
+From 96d6bd1d823ebede438e9a0c8899c215d34a11b7 Mon Sep 17 00:00:00 2001
 From: Federico Bruni <fede@inventati.org>
 Date: Mon, 31 Mar 2025 09:58:15 +0200
 Subject: [PATCH] Add package data files to be included or excluded
@@ -13,11 +13,11 @@ Use a SPDX license identifier.
 
 Fixes #1898
 ---
- pyproject.toml | 15 +++++++++++++--
- 1 file changed, 13 insertions(+), 2 deletions(-)
+ pyproject.toml | 14 ++++++++++++--
+ 1 file changed, 12 insertions(+), 2 deletions(-)
 
 diff --git a/pyproject.toml b/pyproject.toml
-index 2f8c6f7c..0cc68139 100644
+index 2f8c6f7c..14803345 100644
 --- a/pyproject.toml
 +++ b/pyproject.toml
 @@ -7,7 +7,7 @@ name = "frescobaldi"
@@ -37,7 +37,7 @@ index 2f8c6f7c..0cc68139 100644
      # Natural Language :: Chinese (Hong Kong) is not yet accepted by pypi
      #"Natural Language :: Chinese (Hong Kong)",
      "Natural Language :: Chinese (Simplified)",
-@@ -71,6 +70,18 @@ include = ["frescobaldi*"]
+@@ -71,6 +70,17 @@ include = ["frescobaldi*"]
  [tool.setuptools.dynamic.version]
  attr = "frescobaldi.appinfo.version"
  
@@ -45,9 +45,8 @@ index 2f8c6f7c..0cc68139 100644
 +[tool.setuptools.package-data]
 +"*" = [
 +  "*.dic", "*.ily", "*.js", "*.ly", "*.md", "*.mo", "*.png", "*.svg",
-+  "frescobaldi.1", "LICENSE", "THANKS", "TODO",
-+  "linux/org.frescobaldi.Frescobaldi.desktop",
-+  "linux/org.frescobaldi.Frescobaldi.metainfo.xml"
++  "index.theme",
++  "svgview/background.html"
 +]
 +
 +[tool.setuptools.exclude-package-data]
