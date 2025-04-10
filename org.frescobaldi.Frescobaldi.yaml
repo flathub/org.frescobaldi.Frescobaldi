@@ -244,9 +244,12 @@ modules:
         url: https://github.com/frescobaldi/frescobaldi/releases/download/v4.0.0/frescobaldi-4.0.0.tar.gz
         sha256: 55e096df3fc6351e05e97e391a5e19875bda4c62c4279cdccd443581d728d240
         x-checker-data:
-          type: rotating-url
-          url: https://github.com/frescobaldi/frescobaldi/releases/latest
-          pattern: https://github.com/frescobaldi/frescobaldi/releases/download/v([0-9.]+)/frescobaldi-([0-9.]+).tar.gz
+          type: json
+          url: https://api.github.com/repos/frescobaldi/frescobaldi/releases/latest
+          tag-query: .tag_name
+          version-query: .tag_name
+          timestamp-query: .published_at
+          url-query: '[.assets[] | select(.name|test("frescobaldi.+.tar.gz$"))][0] | .browser_download_url'
           is-important: true
       - type: patch
         path: patches/frescobaldi-package-data.patch
