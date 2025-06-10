@@ -241,8 +241,8 @@ modules:
       - cp frescobaldi/icons/org.frescobaldi.Frescobaldi.svg /app/share/icons/hicolor/scalable/apps/
     sources:
       - type: archive
-        url: https://github.com/frescobaldi/frescobaldi/releases/download/v4.0.2/frescobaldi-4.0.2.tar.gz
-        sha256: 3533f5fc610f509ecac38f22c5a301057360239406839a84a553ccefbc68abf9
+        url: https://github.com/frescobaldi/frescobaldi/releases/download/v4.0.3/frescobaldi-4.0.3.tar.gz
+        sha256: 4fe598e8794aad9b7946ed19badfe427362b789c8986275b652f7fa0b4350076
         x-checker-data:
           type: json
           url: https://api.github.com/repos/frescobaldi/frescobaldi/releases/latest
