@@ -239,6 +239,8 @@ modules:
       - cp linux/org.frescobaldi.Frescobaldi.desktop /app/share/applications/
       - cp linux/org.frescobaldi.Frescobaldi.metainfo.xml /app/share/metainfo/
       - cp frescobaldi/icons/org.frescobaldi.Frescobaldi.svg /app/share/icons/hicolor/scalable/apps/
+      # mo files must be in /app/share/locale for the translations metadata (built by appstreamcli compose) to be correct
+      - cd frescobaldi/i18n && find . -type f -name "*.mo" -exec install -D {} /app/share/locale/{} \;
     sources:
       - type: archive
         url: https://github.com/frescobaldi/frescobaldi/releases/download/v4.0.2/frescobaldi-4.0.2.tar.gz
