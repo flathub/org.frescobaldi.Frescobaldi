@@ -202,6 +202,15 @@ modules:
       - type: archive
         url: https://github.com/frescobaldi/python-ly/releases/download/v0.9.9/python_ly-0.9.9.tar.gz
         sha256: cf1780fe53d367efc1f2642cb77c57246106ea7517f8c2d1126f0a36ee26567a
+        x-checker-data:
+          type: json
+          url: https://api.github.com/repos/frescobaldi/python-ly/releases/latest
+          tag-query: .tag_name
+          version-query: .tag_name
+          timestamp-query: .published_at
+          url-query: '[.assets[] | select(.name|test("python_ly.+.tar.gz$"))][0]
+            | .browser_download_url'
+          is-important: true
 
   - name: qpageview
     buildsystem: simple
@@ -211,6 +220,15 @@ modules:
       - type: archive
         url: https://github.com/frescobaldi/qpageview/releases/download/v1.0.0/qpageview-1.0.0.tar.gz
         sha256: 3662b69112ddba0a03efc475f5acd176930dde4c3db6588d548d417946f30907
+        x-checker-data:
+          type: json
+          url: https://api.github.com/repos/frescobaldi/qpageview/releases/latest
+          tag-query: .tag_name
+          version-query: .tag_name
+          timestamp-query: .published_at
+          url-query: '[.assets[] | select(.name|test("qpageview.+.tar.gz$"))][0]
+            | .browser_download_url'
+          is-important: true
 
   # Taken from https://github.com/flathub/shared-modules/tree/master/pygame
   - name: portmidi
