@@ -104,29 +104,28 @@ modules:
       - /bin/gpcl6
       - /bin/gxps
 
-  - name: guile2
+  - name: guile
     modules:
       - name: gc
         config-opts:
           - --disable-docs
         sources:
           - type: archive
-            url: https://www.hboehm.info/gc/gc_source/gc-8.0.6.tar.gz
-            sha256: 3b4914abc9fa76593596773e4da671d7ed4d5390e3d46fbf2e5f155e121bea11
+            url: https://www.hboehm.info/gc/gc_source/gc-8.2.8.tar.gz
+            sha256: 7649020621cb26325e1fb5c8742590d92fb48ce5c259b502faf7d9fb5dabb160
     buildsystem: autotools
     config-opts:
-      - --without-threads
       - --disable-networking
       - --disable-error-on-warning
+      - --disable-lto
+    build-options:
+      no-debuginfo: true
     sources:
       - type: archive
-        url: https://ftp.gnu.org/gnu/guile/guile-2.2.7.tar.xz
-        sha256: cdf776ea5f29430b1258209630555beea6d2be5481f9da4d64986b077ff37504
+        url: https://ftp.gnu.org/gnu/guile/guile-3.0.10.tar.xz
+        sha256: bd7168517fd526333446d4f7ab816527925634094fbd37322e17e2b8d8e76388
       - type: patch
-        path: patches/guile2-never-recompile.patch
-    cleanup:
-      - /share/aclocal
-      - /share/info
+        path: patches/guile-prebuilt-bytecode.patch
 
   - name: lilypond
     buildsystem: simple
@@ -148,21 +147,6 @@ modules:
           prepend-path: /usr/lib/sdk/texlive/bin/x86_64-linux:/usr/lib/sdk/texlive/bin
 
   - name: lilypond-dev
-    modules:
-      - name: guile3
-        buildsystem: autotools
-        config-opts:
-          - --disable-networking
-          - --disable-error-on-warning
-          - --disable-lto
-        build-options:
-          no-debuginfo: true
-        sources:
-          - type: archive
-            url: https://ftp.gnu.org/gnu/guile/guile-3.0.10.tar.xz
-            sha256: bd7168517fd526333446d4f7ab816527925634094fbd37322e17e2b8d8e76388
-          - type: patch
-            path: patches/guile-prebuilt-bytecode.patch
     buildsystem: simple
     build-commands:
       - ./autogen.sh --noconfigure
