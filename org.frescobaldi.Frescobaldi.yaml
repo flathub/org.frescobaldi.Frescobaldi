@@ -28,15 +28,7 @@ finish-args:
   - --socket=wayland
 
 modules:
-  # Fontforge build dependency
-  - name: libuinameslist
-    sources:
-      - type: archive
-        url: https://github.com/fontforge/libuninameslist/releases/download/20180701/libuninameslist-dist-20180701.tar.gz
-        sha256: 8aed97d0bc872d893d8bf642a14e49958b0613136e1bfe2a415c69599c803c90
-    cleanup:
-      - '*'
-
+  # LilyPond build requirements
   - name: fontforge
     buildsystem: cmake-ninja
     builddir: true
@@ -62,6 +54,8 @@ modules:
     cleanup:
       - '*'
 
+  # LilyPond runtime requirements
+  # Check versions and options on https://gitlab.com/lilypond/lilypond/-/blob/master/release/binaries/lib/dependencies.py
   - name: texgyre
     sources:
       - type: archive
@@ -75,8 +69,8 @@ modules:
   - name: ghostscript
     sources:
       - type: archive
-        url: https://github.com/ArtifexSoftware/ghostpdl-downloads/releases/download/gs10030/ghostscript-10.03.0.tar.xz
-        sha256: f25ff491a726d883f0b0f9c8af9b895c674cf77cddd814aa3824b3223f439ee5
+        url: https://github.com/ArtifexSoftware/ghostpdl-downloads/releases/download/gs10051/ghostscript-10.05.1.tar.xz
+        sha256: 22f2bdca15c28830c9715cddc5c296ea66898bfdab0b604a4e0bcfeb03af6cad
     config-opts:
       - --disable-contrib
       - --disable-cups
@@ -98,11 +92,17 @@ modules:
     make-install-args:
       - soinstall
     cleanup:
+      - /bin/dvipdf
+      - /bin/eps2eps
+      - /bin/gpcl6
+      - /bin/gsbj
+      - /bin/gsd*
+      - /bin/gsl
+      - /bin/gsnd
+      - /bin/gxps
       - /include
       - /share/doc
       - /share/man
-      - /bin/gpcl6
-      - /bin/gxps
 
   - name: guile
     modules:
