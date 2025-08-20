@@ -10,12 +10,6 @@ base-version: 6.8
 
 command: frescobaldi
 
-cleanup-commands:
-  - /app/cleanup-BaseApp.sh
-
-cleanup:
-  - /share/man
-
 finish-args:
   - --env=QTWEBENGINEPROCESS_PATH=/app/bin/QtWebEngineProcess
   - --env=PATH=/app/bin:/app/dev/bin:/usr/bin
@@ -249,6 +243,11 @@ modules:
       - /share/man
       - '*.a'
       - '*.la'
+  # Run it before the frescobaldi module, so frescobaldi files in /app/share/locale are not cleaned up.
+  - name: cleanup-baseapp
+    buildsystem: simple
+    build-commands:
+      - /app/cleanup-BaseApp.sh
 
   - name: frescobaldi
     buildsystem: simple
@@ -257,6 +256,8 @@ modules:
       - cp linux/org.frescobaldi.Frescobaldi.desktop /app/share/applications/
       - cp linux/org.frescobaldi.Frescobaldi.metainfo.xml /app/share/metainfo/
       - cp frescobaldi/icons/org.frescobaldi.Frescobaldi.svg /app/share/icons/hicolor/scalable/apps/
+      # mo files must be in /app/share/locale for the translations metadata (built by appstreamcli compose) to be correct
+      - cd frescobaldi/i18n && for mo in $(find . -name "*.mo"); do install -D "$mo" "/app/share/locale/$mo"; done
     sources:
       - type: archive
         url: https://github.com/frescobaldi/frescobaldi/releases/download/v4.0.4/frescobaldi-4.0.4.tar.gz
@@ -270,4 +271,7 @@ modules:
           url-query: '[.assets[] | select(.name|test("frescobaldi.+.tar.gz$"))][0]
             | .browser_download_url'
           is-important: true
+
+cleanup:
+  - /share/man
 
