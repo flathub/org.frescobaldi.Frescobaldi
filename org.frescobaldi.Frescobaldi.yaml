@@ -166,8 +166,8 @@ modules:
     sources:
       - type: git
         url: https://gitlab.com/lilypond/lilypond.git
-        tag: v2.25.28
-        commit: ca8f764dbf6e5da1fcff7eddefd48f4de625285a
+        tag: v2.25.29
+        commit: b544922f94a688f2d76b631577445923c249c982
         x-checker-data:
           type: git
           tag-pattern: ^v([\d.]+)$
@@ -258,7 +258,8 @@ modules:
       - cp linux/org.frescobaldi.Frescobaldi.metainfo.xml /app/share/metainfo/
       - cp frescobaldi/icons/org.frescobaldi.Frescobaldi.svg /app/share/icons/hicolor/scalable/apps/
       # mo files must be in /app/share/locale for the translations metadata (built by appstreamcli compose) to be correct
-      - cd frescobaldi/i18n && for mo in $(find . -name "*.mo"); do install -D "$mo" "/app/share/locale/$mo"; done
+      - cd frescobaldi/i18n && for mo in $(find . -name "*.mo"); do install -D "$mo"
+        "/app/share/locale/$mo"; done
     sources:
       - type: archive
         url: https://github.com/frescobaldi/frescobaldi/releases/download/v4.0.4/frescobaldi-4.0.4.tar.gz
