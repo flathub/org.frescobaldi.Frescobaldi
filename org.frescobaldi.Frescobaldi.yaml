@@ -166,8 +166,8 @@ modules:
     sources:
       - type: git
         url: https://gitlab.com/lilypond/lilypond.git
-        tag: v2.25.29
-        commit: b544922f94a688f2d76b631577445923c249c982
+        tag: v2.25.30
+        commit: 3cccc8ad38df8ef576aa1a4a95fbf947a8fb448b
         x-checker-data:
           type: git
           tag-pattern: ^v([\d.]+)$
