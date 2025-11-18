@@ -144,7 +144,7 @@ modules:
     sources:
       - type: git
         url: https://gitlab.com/njoyard/lilypond.git
-        commit: ed58affde4ab9c17ba91a2a1206ef93fb8ce2c81
+        commit: 3356be2daf5ef59e837e3929e5e2297b42c55831
     build-options:
       arch:
         aarch64:
@@ -238,7 +238,7 @@ modules:
     sources:
       - type: git
         url: https://github.com/njoyard/frescobaldi.git
-        commit: 7db4b1ae55ee68dc9f247c2fca62502f7726b8cc
+        commit: 8dc432e8da7c988dca3cee3691f16faf7ad2ecba
     cleanup:
       - /lib/python*/site-packages/frescobaldi/__pycache__
       - /lib/python*/site-packages/frescobaldi/*/__pycache__
