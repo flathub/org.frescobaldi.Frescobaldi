@@ -216,8 +216,8 @@ modules:
       - pip install --no-build-isolation --prefix=/app .
     sources:
       - type: archive
-        url: https://github.com/frescobaldi/qpageview/releases/download/v1.0.1/qpageview-1.0.1.tar.gz
-        sha256: 7020232b1a60dda457a33a00063fe4de33b48af0c3543b4b7b8c6702f5d40368
+        url: https://github.com/frescobaldi/qpageview/releases/download/v1.0.2/qpageview-1.0.2.tar.gz
+        sha256: ac725bab22916417097ab14c4814ac061b3a3f94b97d3ed02b19d92f1f6af752
         x-checker-data:
           type: json
           url: https://api.github.com/repos/frescobaldi/qpageview/releases/latest
