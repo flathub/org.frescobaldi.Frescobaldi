@@ -166,8 +166,8 @@ modules:
     sources:
       - type: git
         url: https://gitlab.com/lilypond/lilypond.git
-        tag: v2.25.32
-        commit: 20f8b8773c951f74158ee07b2800f72e0d3b4eb5
+        tag: v2.25.33
+        commit: 833f7327ffd2f1cd8959de06d366a1e28079ab36
         x-checker-data:
           type: git
           tag-pattern: ^v([\d.]+)$
@@ -216,8 +216,8 @@ modules:
       - pip install --no-build-isolation --prefix=/app .
     sources:
       - type: archive
-        url: https://github.com/frescobaldi/qpageview/releases/download/v1.0.2/qpageview-1.0.2.tar.gz
-        sha256: ac725bab22916417097ab14c4814ac061b3a3f94b97d3ed02b19d92f1f6af752
+        url: https://github.com/frescobaldi/qpageview/releases/download/v1.0.3/qpageview-1.0.3.tar.gz
+        sha256: 0034b5483abc44d358e47a746714533fdffadde2b864d1ce49aa1e652cc64ae2
         x-checker-data:
           type: json
           url: https://api.github.com/repos/frescobaldi/qpageview/releases/latest
@@ -262,8 +262,8 @@ modules:
         "/app/share/locale/$mo"; done
     sources:
       - type: archive
-        url: https://github.com/frescobaldi/frescobaldi/releases/download/v4.0.4/frescobaldi-4.0.4.tar.gz
-        sha256: 5e460a96200faac3e6cd1a7e610f13be02543b96477dd50bd7b82a74e6c9f03f
+        url: https://github.com/frescobaldi/frescobaldi/releases/download/v4.0.5/frescobaldi-4.0.5.tar.gz
+        sha256: 79538dfd70239716ba03f921a1cf322ec97c1673649af4d60b2e1c64d0ca8dc5
         x-checker-data:
           type: json
           url: https://api.github.com/repos/frescobaldi/frescobaldi/releases/latest
