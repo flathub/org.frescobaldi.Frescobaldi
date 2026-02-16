@@ -253,6 +253,9 @@ modules:
   - name: frescobaldi
     buildsystem: simple
     build-commands:
+      - python i18n/mo-gen.py
+      - msgfmt --desktop -d i18n/frescobaldi --template linux/org.frescobaldi.Frescobaldi.desktop.in -o linux/org.frescobaldi.Frescobaldi.desktop
+      - msgfmt --xml -d i18n/frescobaldi --template linux/org.frescobaldi.Frescobaldi.metainfo.xml.in -o linux/org.frescobaldi.Frescobaldi.metainfo.xml
       - pip install --no-build-isolation --prefix=/app .
       - cp linux/org.frescobaldi.Frescobaldi.desktop /app/share/applications/
       - cp linux/org.frescobaldi.Frescobaldi.metainfo.xml /app/share/metainfo/
@@ -261,18 +264,10 @@ modules:
       - cd frescobaldi/i18n && for mo in $(find . -name "*.mo"); do install -D "$mo"
         "/app/share/locale/$mo"; done
     sources:
-      - type: archive
-        url: https://github.com/frescobaldi/frescobaldi/releases/download/v4.0.5/frescobaldi-4.0.5.tar.gz
-        sha256: 79538dfd70239716ba03f921a1cf322ec97c1673649af4d60b2e1c64d0ca8dc5
-        x-checker-data:
-          type: json
-          url: https://api.github.com/repos/frescobaldi/frescobaldi/releases/latest
-          tag-query: .tag_name
-          version-query: .tag_name
-          timestamp-query: .published_at
-          url-query: '[.assets[] | select(.name|test("frescobaldi.+.tar.gz$"))][0]
-            | .browser_download_url'
-          is-important: true
+      # test https://github.com/frescobaldi/frescobaldi/pull/2152
+      - type: git
+        url: https://github.com/frescobaldi/frescobaldi.git
+        commit: 04d9cec08e69f18db341fadd67cc05ece056acf5
     cleanup:
       - /lib/python*/site-packages/frescobaldi/__pycache__
       - /lib/python*/site-packages/frescobaldi/*/__pycache__
