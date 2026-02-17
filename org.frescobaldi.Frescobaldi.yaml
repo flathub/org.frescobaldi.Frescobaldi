@@ -27,6 +27,56 @@ finish-args:
 modules:
   # LilyPond build requirements
   - name: fontforge
+    modules:
+      - name: sigc++-2
+        buildsystem: meson
+        config-opts:
+          - -Dbuild-documentation=false
+        sources:
+          - type: archive
+            url: https://download.gnome.org/sources/libsigc++/2.12/libsigc++-2.12.1.tar.xz
+            sha256: a9dbee323351d109b7aee074a9cb89ca3e7bcf8ad8edef1851f4cf359bd50843
+      - name: cairomm
+        buildsystem: meson
+        config-opts:
+          - -Dbuild-documentation=false
+        sources:
+          - type: archive
+            url: https://www.cairographics.org/releases/cairomm-1.14.5.tar.xz
+            sha256: 70136203540c884e89ce1c9edfb6369b9953937f6cd596d97c78c9758a5d48db
+      - name: glibmm
+        buildsystem: meson
+        config-opts:
+          - -Dbuild-documentation=false
+          - -Dbuild-examples=false
+        sources:
+          - type: archive
+            url: https://download.gnome.org/sources/glibmm/2.66/glibmm-2.66.8.tar.xz
+            sha256: 64f11d3b95a24e2a8d4166ecff518730f79ecc27222ef41faf7c7e0340fc9329  
+      - name: pangomm
+        buildsystem: meson
+        config-opts:
+          - -Dbuild-documentation=false
+        sources:
+          - type: archive
+            url: https://download.gnome.org/sources/pangomm/2.46/pangomm-2.46.4.tar.xz
+            sha256: b92016661526424de4b9377f1512f59781f41fb16c9c0267d6133ba1cd68db22
+      - name: atkmm
+        buildsystem: meson
+        config-opts:
+          - -Dbuild-documentation=false
+        sources:
+          - type: archive
+            url: https://download.gnome.org/sources/atkmm/2.28/atkmm-2.28.4.tar.xz
+            sha256: 0a142a8128f83c001efb8014ee463e9a766054ef84686af953135e04d28fdab3
+      - name: gtkmm
+        buildsystem: meson
+        config-opts:
+          - -Dbuild-documentation=false
+        sources:
+          - type: archive
+            url: https://download.gnome.org/sources/gtkmm/3.24/gtkmm-3.24.10.tar.xz
+            sha256: 7ab7e2266808716e26c39924ace1fb46da86c17ef39d989624c42314b32b5a76
     buildsystem: cmake-ninja
     builddir: true
     config-opts:
@@ -35,19 +85,16 @@ modules:
       - -DREAL_TYPE=double
     sources:
       - type: archive
-        url: https://github.com/fontforge/fontforge/archive/refs/tags/20230101.tar.gz
-        sha256: ab0c4be41be15ce46a1be1482430d8e15201846269de89df67db32c7de4343f1
-      # From https://src.fedoraproject.org/rpms/fontforge/blob/rawhide/f/0001-Fix-errors-in-French-and-Italian-translations.patch
-      - type: patch
-        path: patches/fontforge-translation-errors.patch
+        url: https://github.com/fontforge/fontforge/archive/refs/tags/20251009.tar.gz
+        sha256: 613424039e0e1b6bb106f8f0df287e1d249ac285d854f4e1964d68e9b9ad7eb0
     cleanup:
       - '*'
 
   - name: t1utils
     sources:
       - type: archive
-        url: https://github.com/kohler/t1utils/archive/v1.41.tar.gz
-        sha256: 0129fbfabb212143f52ff1e5de8ccbef5e5295d46772bad3ed149115bab5a094
+        url: https://github.com/kohler/t1utils/archive/refs/tags/v1.42.tar.gz
+        sha256: d385fa78fca179e5edcf962bf1545a926f365c03e62b5a0ca5d80f104727ce81
     cleanup:
       - '*'
 
@@ -66,8 +113,8 @@ modules:
   - name: ghostscript
     sources:
       - type: archive
-        url: https://github.com/ArtifexSoftware/ghostpdl-downloads/releases/download/gs10051/ghostscript-10.05.1.tar.xz
-        sha256: 22f2bdca15c28830c9715cddc5c296ea66898bfdab0b604a4e0bcfeb03af6cad
+        url: https://github.com/ArtifexSoftware/ghostpdl-downloads/releases/download/gs10060/ghostscript-10.06.0.tar.xz
+        sha256: 64352648c2c081c8a9fb1a12dc1965e01ead7c57f58b72d1b54f6ef1cef3c561
     config-opts:
       - --disable-contrib
       - --disable-cups
@@ -121,8 +168,8 @@ modules:
       no-debuginfo: true
     sources:
       - type: archive
-        url: https://ftp.gnu.org/gnu/guile/guile-3.0.10.tar.xz
-        sha256: bd7168517fd526333446d4f7ab816527925634094fbd37322e17e2b8d8e76388
+        url: https://ftp.gnu.org/gnu/guile/guile-3.0.11.tar.xz
+        sha256: 818c79d236657a7fa96fb364137cc7b41b3bdee0d65c6174ca03769559579460
       - type: patch
         path: patches/guile-prebuilt-bytecode.patch
     cleanup:
@@ -240,8 +287,8 @@ modules:
       - -DCMAKE_RUNTIME_OUTPUT_DIRECTORY:STRING=/app/bin
     sources:
       - type: archive
-        url: https://github.com/PortMidi/portmidi/archive/refs/tags/v2.0.4.tar.gz
-        sha256: 64893e823ae146cabd3ad7f9a9a9c5332746abe7847c557b99b2577afa8a607c
+        url: https://github.com/PortMidi/portmidi/archive/refs/tags/v2.0.8.tar.gz
+        sha256: f21201d4cc233638d7bb6ee29ee6dece54f6c9c1aeb7989bc978001caaf2f666
     cleanup:
       - /bin
       - /lib/pkgconfig
