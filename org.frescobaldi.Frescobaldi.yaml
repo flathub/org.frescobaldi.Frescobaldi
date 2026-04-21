@@ -210,12 +210,13 @@ modules:
       - make bytecode
       - make install
       - make install-bytecode
-      - find /app/dev/share/lilypond -name "fonts" -type d -exec install -Dm644 50-flatpak-host-fonts.conf {}/50-flatpak-host-fonts.conf \;
+      - find /app/dev/share/lilypond -name "fonts" -type d -exec install -Dm644 50-flatpak-host-fonts.conf
+        {}/50-flatpak-host-fonts.conf \;
     sources:
       - type: git
         url: https://gitlab.com/lilypond/lilypond.git
-        tag: v2.25.81
-        commit: 18cf09c1f24d22eeb0cdc187dec0af734d60cfc8
+        tag: v2.26.0
+        commit: 3596756be0fac1f81066a99d2054329212172b2d
         x-checker-data:
           type: git
           tag-pattern: ^v([\d.]+)$
