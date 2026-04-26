@@ -1,0 +1,176 @@
+name: lilypond
+buildsystem: simple
+build-commands:
+  - ./configure --prefix=/app --disable-documentation --enable-cairo-backend
+  - make
+  - make bytecode
+  - make install
+  - make install-bytecode
+sources:
+  - type: archive
+    url: https://lilypond.org/download/sources/v2.26/lilypond-2.26.0.tar.gz
+    sha256: bbe82dbeba7f7f99ddcd8d1fa134a0d89cafa6e8f815fde5bb01f4208b06fe05
+build-options:
+  arch:
+    aarch64:
+      prepend-path: /usr/lib/sdk/texlive/bin/aarch64-linux:/usr/lib/sdk/texlive/bin
+    x86_64:
+      prepend-path: /usr/lib/sdk/texlive/bin/x86_64-linux:/usr/lib/sdk/texlive/bin
+cleanup:
+  - /share/emacs
+  - /share/lilypond/*/python/__pycache__
+
+modules:
+  # LilyPond build requirements
+  - name: fontforge
+    modules:
+      - name: sigc++-2
+        buildsystem: meson
+        config-opts:
+          - -Dbuild-documentation=false
+        sources:
+          - type: archive
+            url: https://download.gnome.org/sources/libsigc++/2.12/libsigc++-2.12.1.tar.xz
+            sha256: a9dbee323351d109b7aee074a9cb89ca3e7bcf8ad8edef1851f4cf359bd50843
+      - name: cairomm
+        buildsystem: meson
+        config-opts:
+          - -Dbuild-documentation=false
+        sources:
+          - type: archive
+            url: https://www.cairographics.org/releases/cairomm-1.14.5.tar.xz
+            sha256: 70136203540c884e89ce1c9edfb6369b9953937f6cd596d97c78c9758a5d48db
+      - name: glibmm
+        buildsystem: meson
+        config-opts:
+          - -Dbuild-documentation=false
+          - -Dbuild-examples=false
+        sources:
+          - type: archive
+            url: https://download.gnome.org/sources/glibmm/2.66/glibmm-2.66.8.tar.xz
+            sha256: 64f11d3b95a24e2a8d4166ecff518730f79ecc27222ef41faf7c7e0340fc9329
+      - name: pangomm
+        buildsystem: meson
+        config-opts:
+          - -Dbuild-documentation=false
+        sources:
+          - type: archive
+            url: https://download.gnome.org/sources/pangomm/2.46/pangomm-2.46.4.tar.xz
+            sha256: b92016661526424de4b9377f1512f59781f41fb16c9c0267d6133ba1cd68db22
+      - name: atkmm
+        buildsystem: meson
+        config-opts:
+          - -Dbuild-documentation=false
+        sources:
+          - type: archive
+            url: https://download.gnome.org/sources/atkmm/2.28/atkmm-2.28.4.tar.xz
+            sha256: 0a142a8128f83c001efb8014ee463e9a766054ef84686af953135e04d28fdab3
+      - name: gtkmm
+        buildsystem: meson
+        config-opts:
+          - -Dbuild-documentation=false
+        sources:
+          - type: archive
+            url: https://download.gnome.org/sources/gtkmm/3.24/gtkmm-3.24.10.tar.xz
+            sha256: 7ab7e2266808716e26c39924ace1fb46da86c17ef39d989624c42314b32b5a76
+    buildsystem: cmake-ninja
+    builddir: true
+    config-opts:
+      - -DENABLE_DOCS=false
+      - -DENABLE_LIBSPIRO=false
+      - -DREAL_TYPE=double
+    sources:
+      - type: archive
+        url: https://github.com/fontforge/fontforge/archive/refs/tags/20251009.tar.gz
+        sha256: 613424039e0e1b6bb106f8f0df287e1d249ac285d854f4e1964d68e9b9ad7eb0
+    cleanup:
+      - '*'
+
+  - name: t1utils
+    sources:
+      - type: archive
+        url: https://github.com/kohler/t1utils/archive/refs/tags/v1.42.tar.gz
+        sha256: d385fa78fca179e5edcf962bf1545a926f365c03e62b5a0ca5d80f104727ce81
+    cleanup:
+      - '*'
+
+  # LilyPond runtime requirements
+  # Check versions and options on https://gitlab.com/lilypond/lilypond/-/blob/master/release/binaries/lib/dependencies.py
+  - name: texgyre
+    sources:
+      - type: archive
+        url: https://www.gust.org.pl/projects/e-foundry/tex-gyre/whole/tg2_501otf.zip
+        sha256: d7f8be5317bec4e644cf16c5abf876abeeb83c43dbec0ccb4eee4516b73b1bbe
+    buildsystem: simple
+    build-commands:
+      - mkdir /app/share/fonts
+      - install * /app/share/fonts
+
+  - name: ghostscript
+    sources:
+      - type: archive
+        url: https://github.com/ArtifexSoftware/ghostpdl-downloads/releases/download/gs10060/ghostscript-10.06.0.tar.xz
+        sha256: 64352648c2c081c8a9fb1a12dc1965e01ead7c57f58b72d1b54f6ef1cef3c561
+    config-opts:
+      - --disable-contrib
+      - --disable-cups
+      - --disable-dbus
+      - --disable-fontconfig
+      - --disable-gtk
+      - --with-drivers=PNG,PS
+      - --without-cal
+      - --without-ijs
+      - --without-libidn
+      - --without-libpaper
+      - --without-libtiff
+      - --without-pdftoraster
+      - --without-tesseract
+      - --without-urf
+      - --without-x
+    make-args:
+      - so
+    make-install-args:
+      - soinstall
+    cleanup:
+      - /bin/dvipdf
+      - /bin/eps2eps
+      - /bin/gpcl6
+      - /bin/gsbj
+      - /bin/gsd*
+      - /bin/gsl
+      - /bin/gsnd
+      - /bin/gxps
+      - /include
+      - /share/doc
+      - /share/man
+
+  - name: guile
+    modules:
+      - name: gc
+        config-opts:
+          - --disable-docs
+        sources:
+          - type: archive
+            url: https://www.hboehm.info/gc/gc_source/gc-8.2.8.tar.gz
+            sha256: 7649020621cb26325e1fb5c8742590d92fb48ce5c259b502faf7d9fb5dabb160
+        cleanup:
+          - '*.la'
+    buildsystem: autotools
+    config-opts:
+      - --disable-networking
+      - --disable-error-on-warning
+      - --disable-lto
+    build-options:
+      no-debuginfo: true
+    sources:
+      - type: archive
+        url: https://ftp.gnu.org/gnu/guile/guile-3.0.11.tar.xz
+        sha256: 818c79d236657a7fa96fb364137cc7b41b3bdee0d65c6174ca03769559579460
+      - type: patch
+        path: patches/guile-prebuilt-bytecode.patch
+    cleanup:
+      - /share/aclocal
+      - /share/info
+      - /share/man
+      - '*.a'
+      - '*.la'
