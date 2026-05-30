@@ -107,8 +107,8 @@ modules:
         "/app/share/locale/$mo"; done
     sources:
       - type: archive
-        url: https://github.com/frescobaldi/frescobaldi/releases/download/v4.0.6/frescobaldi-4.0.6.tar.gz
-        sha256: a3dbfe8f5f9957d1226245775732a303d965c121831e49b62ac06a1f95fbf6c7
+        url: https://github.com/frescobaldi/frescobaldi/releases/download/v4.0.7/frescobaldi-4.0.7.tar.gz
+        sha256: 7e3e635f39d447398e4b5ed6963c03740b35e42479c370a36a27200a80e859ee
         x-checker-data:
           type: json
           url: https://api.github.com/repos/frescobaldi/frescobaldi/releases/latest
