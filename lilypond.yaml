@@ -160,14 +160,13 @@ modules:
       - --disable-networking
       - --disable-error-on-warning
       - --disable-lto
+      - --disable-static
     build-options:
       no-debuginfo: true
     sources:
       - type: archive
         url: https://ftp.gnu.org/gnu/guile/guile-3.0.11.tar.xz
         sha256: 818c79d236657a7fa96fb364137cc7b41b3bdee0d65c6174ca03769559579460
-      - type: patch
-        path: patches/guile-prebuilt-bytecode.patch
     cleanup:
       - /share/aclocal
       - /share/info
